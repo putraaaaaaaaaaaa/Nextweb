@@ -17,6 +17,7 @@ const Banner = () => {
           delay: 4000,
           disableOnInteraction: false,
         }}
+        className="container"
       >
 <SwiperSlide>
   <div className="relative aspect-[1080/424] h-full">
