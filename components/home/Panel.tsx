@@ -64,7 +64,8 @@ const TabPanelComponent = () => {
         </div>
           </div>
         </TabList>
-      <TabPanels className="mt-3">
+        <div>
+      <TabPanels className="my-8" as="ul">
         <TabPanel key="Topup">
           <div className="mb-4 grid grid-cols-3 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6">
             <a
@@ -92,6 +93,7 @@ const TabPanelComponent = () => {
         </TabPanel>
         <TabPanel key="Voucher">Voucher</TabPanel>
       </TabPanels>
+      </div>
     </TabGroup>
   );
 };
