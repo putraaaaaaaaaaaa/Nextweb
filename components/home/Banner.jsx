@@ -18,7 +18,7 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
       >
-       <SwiperSlide>
+<SwiperSlide>
   <div className="relative aspect-[1080/424] h-full">
     <Link href="https://instagram.com/sptra.re" target="_blank" rel="noopener noreferrer">
       <Image
@@ -26,6 +26,13 @@ const Banner = () => {
         className="rounded-3xl"
         src="/IMG_1098.webp"
         fill
+        style={{
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          inset: '0px',
+          color: 'transparent',
+        }}
       />
     </Link>
   </div>
