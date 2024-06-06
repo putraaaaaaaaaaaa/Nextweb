@@ -11,6 +11,10 @@ export default function Home() {
         <Populer />
         <TabPanelComponent />
       </div>
+      <div className="mt-12 bg-gradient-to-b from-transparent from-[70%] to-secondary">
+<Image src="https://cdn.bangjeff.com/meta/background-footer.png"
+alt="" width={700} height={475} className="object-cover object-bottom"/>
+</div>
     </main>
   );
 }

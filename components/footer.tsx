@@ -6,7 +6,7 @@ const Footer = () => {
   <h2 id="footer-heading" className="sr-only">Footer</h2>
   <div className="container py-12 pb-8">
     <p className="text-center text-sm leading-6 text-foreground">
-    tempat top up games yang aman, murah dan terpercaya.
+    No #1 supplier top up game & voucher terlaris, murah, aman legal 100% buka 24 Jam dengan payment terlengkap Indonesia
     </p>
     <div className="xl:grid xl:gap-8 xl:grid-cols-2">
     <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2">

@@ -12,7 +12,7 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "NUEPEDIA - Top Up Game Termurah Dan Tercepat Se-Indonesia",
-  description: "tempat top up games yang aman, murah dan terpercaya.",
+  description: "No #1 supplier top up game & voucher terlaris, murah, aman legal 100% buka 24 Jam dengan payment terlengkap Indonesia",
 };
 
 export default function RootLayout({ children }: Readonly<{
