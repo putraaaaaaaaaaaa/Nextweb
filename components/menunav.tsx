@@ -86,7 +86,7 @@ export default function MyModal() {
                       >
                         <path
                           strokeLinecap="round"
-                          strokeLineJoin="round"
+                          strokeLinejoin="round"
                           d="M6 18L18 6M6 6l12 12"
                         />
                       </svg>
