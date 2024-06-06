@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-
+import ModeToggle from "@/components/ModeToggle";
 const Footer = () => {
   return (
     <footer className="bg-secondary print:hidden" aria-labelledby="footer-heading">
@@ -127,6 +127,7 @@ const Footer = () => {
          <p className="text-xs leading-5 text-foreground">
            © 2024 CV NUEPEDIA. All rights reserved.
          </p>
+         <ModeToggle />
        </div>
      </div>
    </footer>
