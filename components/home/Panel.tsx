@@ -57,7 +57,7 @@ const TabPanelComponent = () => {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-chevron-right h-4 w-4 "
+              className="lucide lucide-chevron-right h-4 w-4 "
             >
               <path d="m9 18 6-6-6-6" />
             </svg>
