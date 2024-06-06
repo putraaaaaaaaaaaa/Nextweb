@@ -4,6 +4,7 @@ import "./app.css";
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{
         >
           <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
