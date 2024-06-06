@@ -1,0 +1,16 @@
+import Image from "next/image";
+import ModeToggle from "@/components/ModeToggle";
+import Banner from "@/components/home/Banner";
+import Populer from "@/components/home/Populer";
+import TabPanelComponent from "@/components/home/Panel";
+export default function Home() {
+  return (
+    <main className="relative">
+      <Banner />
+      <div className="flex flex-col gap-y-8 pt-8">
+        <Populer />
+        <TabPanelComponent />
+      </div>
+    </main>
+  );
+}
