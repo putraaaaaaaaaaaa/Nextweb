@@ -24,7 +24,7 @@ export default function MyModal() {
         onClick={open}
         className="rounded-md bg-secondary p-2 text-foreground lg:hidden"
       >
-        <span class="sr-only">Open menu</span>
+        <span className="sr-only">Open menu</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
