@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   description: "tempat top up games yang aman, murah dan terpercaya.",
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
