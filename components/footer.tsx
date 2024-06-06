@@ -15,11 +15,11 @@ const Footer = () => {
   <ul role="list" className="mt-6 space-y-4">
     <li>
     <Link
-  href="/affiliate"
+  href="https://api.whatsapp.com/send/?phone=62895360841074&text=Halo%2C+Saya+tertarik+membuat+web+top+up+game&type=phone_number&app_absent=0"
   className="flex items-center gap-2 text-sm leading-6 text-foreground hover:text-primary/75"
   style={{ outline: 'currentcolor' }}
 >
-  <span>Afiliasi</span>
+  <span>Web Topup</span>
 </Link>
     </li>
   </ul>
