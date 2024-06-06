@@ -18,19 +18,18 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
       >
-        <SwiperSlide>
-        <div className="relative aspect-[1080/424] h-full">
-        <Link
-        href="instagram.com/sptra.re">
-          <Image>
-            alt="banner"
-            className="rounded-3xl"
-            src="/IMG_1098.webp"
-            fill
-          </Image>
-        </Link>
-        </div>
-        </SwiperSlide>
+       <SwiperSlide>
+  <div className="relative aspect-[1080/424] h-full">
+    <Link href="https://instagram.com/sptra.re" target="_blank" rel="noopener noreferrer">
+      <Image
+        alt="banner"
+        className="rounded-3xl"
+        src="/IMG_1098.webp"
+        fill
+      />
+    </Link>
+  </div>
+</SwiperSlide>
       </Swiper>
       <div className="absolute inset-0 -z-10">
         <div className="area pt-3">
