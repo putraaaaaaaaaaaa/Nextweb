@@ -10,8 +10,9 @@ import {
 const TabPanelComponent = () => {
   return (
     <TabGroup className="container">
-      <div className="flex items-center gap-2">
-        <div className="block lg:hidden">
+        <TabList>
+        <div className="flex items-center gap-2">
+                <div className="block lg:hidden">
           <Button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 w-9">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +30,6 @@ const TabPanelComponent = () => {
             </svg>
           </Button>
         </div>
-        <TabList>
           <div className="hide-scrollbar -mb-px flex transform items-center gap-2 space-x-3 overflow-auto duration-300 ease-in-out">
             <Tab
               key="Topup"
@@ -44,8 +44,7 @@ const TabPanelComponent = () => {
               Voucher
             </Tab>
           </div>
-        </TabList>
-        <div className="block lg:hidden">
+                  <div className="block lg:hidden">
           <Button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 w-9">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +62,8 @@ const TabPanelComponent = () => {
             </svg>
           </Button>
         </div>
-      </div>
+          </div>
+        </TabList>
       <TabPanels className="mt-3">
         <TabPanel key="Topup">
           <div className="mb-4 grid grid-cols-3 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6">
