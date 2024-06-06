@@ -27,7 +27,7 @@ const Footer = () => {
 </div>
 </div>
     <div className="mt-16 flex items-center justify-between border-t border-background/50 pt-8 sm:mt-20 lg:mt-24">
-    <p class="text-xs leading-5 text-foreground">
+    <p className="text-xs leading-5 text-foreground">
 © 
 2024
 CV NUEPEDIA
