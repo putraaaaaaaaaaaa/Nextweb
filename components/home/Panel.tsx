@@ -67,11 +67,12 @@ const TabPanelComponent = () => {
         <div>
       <TabPanels className="my-8" as="ul">
         <TabPanel key="Topup">
+        <div>
           <div className="mb-4 grid grid-cols-3 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6">
-            <a
-              className="group relative transform overflow-hidden rounded-2xl bg-muted duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background"
-              href="/order/mobile-legends"
+            <Link
+              href="/mobile-legends"
             >
+            <div className="group relative transform overflow-hidden rounded-2xl bg-muted duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background">
               <Image
                 alt="banner"
                 className="aspect-[4/6] object-cover object-center"
@@ -88,7 +89,9 @@ const TabPanelComponent = () => {
                 </p>
               </article>
               <div className="absolute inset-0 transform bg-gradient-to-t from-transparent transition-all duration-300 group-hover:from-background"></div>
-            </a>
+              </div>
+            </Link>
+          </div>
           </div>
         </TabPanel>
         <TabPanel key="Voucher">Voucher</TabPanel>
