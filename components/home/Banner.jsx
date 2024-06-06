@@ -1,7 +1,9 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link"
 import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper,
+  SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay } from "swiper";
 const Banner = () => {
   return (
@@ -16,13 +18,15 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
       >
-        <SwiperSlide>
+        <SwiperSlide className="relative aspect-[1080/424] h-full">
+        <Link
+        href="instagram.com/sptra.re"
+        />
           <Image
             alt="banner"
             className="rounded-3xl"
             src="/IMG_1098.webp"
-            width={1920}
-            height={720}
+            fill
           />
         </SwiperSlide>
       </Swiper>
