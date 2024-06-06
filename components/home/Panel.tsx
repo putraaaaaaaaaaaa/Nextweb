@@ -82,10 +82,10 @@ const TabPanelComponent = () => {
                 height={288}
               />
               <article className="absolute inset-x-0 -bottom-10 z-10 flex transform flex-col px-3 transition-all duration-300 ease-in-out group-hover:bottom-3 sm:px-4 group-hover:sm:bottom-4">
-                <h2 className="truncate text-sm font-semibold text-secondary-200 sm:text-base">
+                <h2 className="truncate text-sm font-semibold text-foreground sm:text-base">
                   Mobile Legends
                 </h2>
-                <p className="truncate text-xxs text-secondary-400 sm:text-xs">
+                <p className="truncate text-xxs text-foreground sm:text-xs">
                   Moonton
                 </p>
               </article>
