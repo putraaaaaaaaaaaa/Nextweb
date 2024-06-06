@@ -95,7 +95,34 @@ const TabPanelComponent = () => {
           </div>
           </div>
         </TabPanel>
-        <TabPanel key="Voucher">Voucher</TabPanel>
+        <TabPanel key="Voucher">
+        <div>
+          <div className="mb-4 grid grid-cols-3 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6">
+            <Link
+              href="/playstation"
+            >
+            <div className="group relative transform overflow-hidden rounded-2xl bg-muted duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background">
+              <Image
+                alt="banner"
+                className="aspect-[4/6] object-cover object-center"
+                src="/IMG_1294.webp"
+                width={192}
+                height={288}
+              />
+              <article className="absolute inset-x-0 -bottom-10 z-10 flex transform flex-col px-3 transition-all duration-300 ease-in-out group-hover:bottom-3 sm:px-4 group-hover:sm:bottom-4">
+                <h2 className="truncate text-sm font-semibold text-foreground sm:text-base">
+                  PLAY STATION PSN - VOUCHER
+                </h2>
+                <p className="truncate text-xxs text-foreground sm:text-xs">
+                  Sony Interactive Entertainment
+                </p>
+              </article>
+              <div className="absolute inset-0 transform bg-gradient-to-t from-transparent transition-all duration-300 group-hover:from-background"></div>
+              </div>
+            </Link>
+          </div>
+          </div>
+        </TabPanel>
       </TabPanels>
       </div>
     </TabGroup>
