@@ -14,7 +14,7 @@ import { formatIDR } from "@/lib/formatIDR";
 import { NominalProps } from "./NominalProps";
 import { Option } from "./Option";
 const Nominal = ({ onSelect }: NominalProps) => {
-  let [selected, setSelected] = useState<Option | null>(null);
+  let [selected, setSelected] = useState<Option>({ name: "", harga: 0, image: "" });
   const handleSelect = (option: Option) => {
     setSelected(option);
     onSelect(option);
