@@ -2,13 +2,14 @@
 import Image from "next/image";
 import { Fragment, useState } from "react";
 import { Radio, RadioGroup } from "@headlessui/react";
-const special = [
-  { name: "Weekly Diamond Pass", harga: " 28000", image: "/IMG_1438.webp" },
-  { name: "Twilight Pass", harga: " 150000", image: "/IMG_1439.webp" },
+const special: Option[] = [
+  { name: "Weekly Diamond Pass", harga: 28000, image: "/IMG_1438.webp" },
+  { name: "Twilight Pass", harga: 150000, image: "/IMG_1439.webp" },
 ];
-const topup = [
-  { name: "5 Diamonds", harga: " 1500", image: "/IMG_1441.webp" },
-  { name: "10 Diamonds", harga: " 3000", image: "/IMG_1441.webp" },
+
+const topup: Option[] = [
+  { name: "5 Diamonds", harga: 1500, image: "/IMG_1441.webp" },
+  { name: "10 Diamonds", harga: 3000, image: "/IMG_1441.webp" },
 ];
 import { formatIDR } from "@/lib/formatIDR";
 import { NominalProps } from "./NominalProps";

@@ -49,8 +49,8 @@ export default function Page({ params }: PageProps) {
   
 
   const calculatedPrice = selectedOption
-    ? selectedOption.harga * quantity
-    : null;
+  ? selectedOption.harga * quantity
+  : null;
   return (
     <main className="relative bg-gradient-theme">
       <div className="relative h-56 w-full bg-muted lg:h-[340px]">

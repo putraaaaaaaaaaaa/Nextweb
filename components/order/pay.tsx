@@ -10,11 +10,12 @@ import {
 } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { formatIDR } from "@/lib/formatIDR";
+import { PayProps } from "./PayProps";
 const special = [
   { name: "QRIS", admin: "0.7", image: "/IMG_1051.webp" },
   { name: "Go-Pay", admin: "2", image: "/IMG_1052.webp" },
 ];
-const Pay = ({ selectedPrice }) => {
+const Pay = ({ selectedPrice }: PayProps) => {
   let [selected, setSelected] = useState(null);
   return (
     <section className="relative rounded-xl bg-card/50 shadow-2xl" id="2">
@@ -78,7 +79,7 @@ const Pay = ({ selectedPrice }) => {
                                     <div className="flex w-full items-center justify-between">
                                       <div className="mt-2 w-full">
                                         <div className="mt-1.5 flex items-center gap-2">
-                                          <div className="relative z-30 text-xs font-semibold leading-4 text-background">{formatIDR(selectedPrice)}</div>
+                                          <div className="relative z-30 text-xs font-semibold leading-4 text-background">{selectedPrice && formatIDR(selectedPrice)}</div>
                                         </div>
                                         <div className="mt-0.5 h-px w-full bg-border">
                                           </div>
