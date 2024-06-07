@@ -70,7 +70,7 @@ const TabPanelComponent = () => {
           <TabPanel key="Topup">
             <div>
               <div className="mb-4 grid grid-cols-3 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-5 xl:grid-cols-6">
-                <Link href="/mobile-legends">
+                <Link href="/id/mobile-legends">
                   <div className="group relative transform overflow-hidden rounded-2xl bg-muted duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background">
                     <Image
                       alt="banner"
