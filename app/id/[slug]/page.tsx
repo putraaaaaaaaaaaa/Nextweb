@@ -203,7 +203,7 @@ export default function Page({ params }: PageProps) {
                   <h3 className="pb-4 text-sm/6 font-semibold text-card-foreground">
                     🔥 Special Items
                   </h3>
-                  <RadioGroup by="name" value={selected} onChange={setSelected}>
+                  <RadioGroup value={selected} onChange={setSelected}>
                     <div
                       className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3"
                       role="none"
