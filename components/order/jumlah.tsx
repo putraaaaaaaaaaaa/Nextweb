@@ -6,14 +6,14 @@ const Jumlah = ({ onQuantityChange }) => {
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
-    onQuantityChange(newQuantity); // Call the onQuantityChange function
+    onQuantityChange(newQuantity); // Pass a number value
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      onQuantityChange(newQuantity); // Call the onQuantityChange function
+      onQuantityChange(newQuantity); // Pass a number value
     }
   };
   return (

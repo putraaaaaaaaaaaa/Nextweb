@@ -38,13 +38,15 @@ export default function Page({ params }: PageProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [quantity, setQuantity] = useState(1);
 
+  const handleQuantityChange = (newQuantity: number) => {
+    setQuantity(newQuantity);
+  };
+
   const handleSelect = (option: Option) => {
     setSelectedOption(option);
   };
 
-  const handleQuantityChange = (newQuantity) => {
-    setQuantity(newQuantity);
-  };
+  
 
   const calculatedPrice = selectedOption
     ? selectedOption.harga * quantity
