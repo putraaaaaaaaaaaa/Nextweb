@@ -14,7 +14,7 @@ const topup = [
   { name: "10 Diamonds", harga: "3.000", image: "/IMG_1441.webp" },
 ];
 const Nominal = () => {
-  let [selected, setSelected] = useState(special[0]);
+  let [selected, setSelected] = useState(null);
   return (
               <section className="relative rounded-xl bg-card/50 shadow-2xl" id="1">
             <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
