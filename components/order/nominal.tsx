@@ -15,7 +15,6 @@ const topup = [
 ];
 const Nominal = () => {
   let [selected, setSelected] = useState(special[0]);
-  let [selected, setSelected] = useState(topup[0]);
   return (
               <section className="relative rounded-xl bg-card/50 shadow-2xl" id="1">
             <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
