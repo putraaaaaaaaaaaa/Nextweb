@@ -33,6 +33,7 @@
     --tw-ring-offset-shadow: 0 0% 100%; /* White color */
     --tw-ring-shadow: 0 0% 80%; /* Off-white color */
     --ring-offset-card: 210 18% 32%;
+    --populer-image: url('/IMG_1435.png');
   }
 
   .dark {
