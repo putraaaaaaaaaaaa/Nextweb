@@ -17,6 +17,9 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Foot from "@/components/foot";
 import Nominal from "@/components/order/nominal";
+import Input from "@/components/order/input";
+import Jumlah from "@/components/order/jumlah";
+import Pay from "@/components/order/pay";
 interface PageProps {
   params: {
     slug: string | null;
@@ -31,7 +34,20 @@ export default function Page({ params }: PageProps) {
   if (!validSlugs.includes(slug)) {
     notFound();
   }
-  
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
+
+  const calculatedPrice = selectedOption
+    ? selectedOption.harga * quantity
+    : null;
   return (
     <main className="relative bg-gradient-theme">
       <div className="relative h-56 w-full bg-muted lg:h-[340px]">
@@ -126,7 +142,7 @@ export default function Page({ params }: PageProps) {
         <div className="col-span-3 lg:col-span-1">
           <div className="sticky top-[90px] flex flex-col gap-8">
             <div className="space-y-2">
-              <Disclosure>
+              <Disclosure defaultOpen={true}>
                 {({ open }) => (
                   <>
                     <DisclosureButton className="flex w-full items-center justify-between rounded-lg bg-card/75 px-4 py-2 text-left text-xs font-medium text-card-foreground focus:outline-none">
@@ -183,23 +199,12 @@ export default function Page({ params }: PageProps) {
           </div>
         </div>
         <form className="col-span-3 col-start-1 flex flex-col gap-4 lg:col-span-2 lg:gap-8">
-        <Nominal />
-          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="2">
-            …
-          </section>
-          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="3">
-            …
-          </section>
-          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="4">
-            …
-          </section>
-          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="5">
-            …
-          </section>
-          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="6">
-            …
-          </section>
-          <div className="flex flex-col gap-4 bg-background">…</div>
+          <Nominal onSelect={handleSelect} />
+          <Input />
+          <Jumlah onQuantityChange={handleQuantityChange} />
+          <Pay selectedPrice={calculatedPrice} />
+          
+         
         </form>
       </div>
       <Foot />
