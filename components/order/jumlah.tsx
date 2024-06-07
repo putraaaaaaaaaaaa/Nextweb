@@ -1,19 +1,20 @@
 "use client";
 import { useState } from "react";
-const Jumlah = ({ onQuantityChange }) => {
+import { JumlahProps } from "./JumlahProps";
+const Jumlah = ({ onQuantityChange }: JumlahProps) => {
   const [quantity, setQuantity] = useState(1);
 
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
-    onQuantityChange(newQuantity); // Pass a number value
+    onQuantityChange(newQuantity);
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      onQuantityChange(newQuantity); // Pass a number value
+      onQuantityChange(newQuantity);
     }
   };
   return (
