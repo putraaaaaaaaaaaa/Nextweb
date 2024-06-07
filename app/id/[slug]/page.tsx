@@ -20,6 +20,7 @@ import Nominal from "@/components/order/nominal";
 import Input from "@/components/order/input";
 import Jumlah from "@/components/order/jumlah";
 import Pay from "@/components/order/pay";
+import { Option } from './types/Option';
 interface PageProps {
   params: {
     slug: string | null;
@@ -34,10 +35,10 @@ export default function Page({ params }: PageProps) {
   if (!validSlugs.includes(slug)) {
     notFound();
   }
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [quantity, setQuantity] = useState(1);
 
-  const handleSelect = (option) => {
+  const handleSelect = (option: Option) => {
     setSelectedOption(option);
   };
 
