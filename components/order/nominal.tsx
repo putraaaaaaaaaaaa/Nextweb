@@ -11,11 +11,13 @@ const topup = [
   { name: "10 Diamonds", harga: " 3000", image: "/IMG_1441.webp" },
 ];
 import { formatIDR } from "@/lib/formatIDR";
-const Nominal = ({ onSelect }) => {
-  let [selected, setSelected] = useState(null);
-  const handleSelect = (option) => {
+import { NominalProps } from "./NominalProps";
+import { Option } from "./Option";
+const Nominal = ({ onSelect }: NominalProps) => {
+  let [selected, setSelected] = useState<Option | null>(null);
+  const handleSelect = (option: Option) => {
     setSelected(option);
-    onSelect(option); // Pass the entire selected option object
+    onSelect(option);
   };
   return (
     <section className="relative rounded-xl bg-card/50 shadow-2xl" id="1">
