@@ -20,7 +20,7 @@ import Nominal from "@/components/order/nominal";
 import Input from "@/components/order/input";
 import Jumlah from "@/components/order/jumlah";
 import Pay from "@/components/order/pay";
-import { Option } from './types/Option';
+import { Option } from './Option';
 interface PageProps {
   params: {
     slug: string | null;
