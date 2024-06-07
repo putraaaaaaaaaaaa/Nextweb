@@ -2,6 +2,7 @@ import Image from "next/image";
 import ModeToggle from "@/components/ModeToggle";
 import Banner from "@/components/home/Banner";
 import Populer from "@/components/home/Populer";
+import Foot from "@/components/foot";
 import TabPanelComponent from "@/components/home/Panel";
 export default function Home() {
   return (
@@ -11,10 +12,7 @@ export default function Home() {
         <Populer />
         <TabPanelComponent />
       </div>
-      <div className="mt-12 bg-gradient-to-b from-transparent from-[70%] to-secondary">
-<Image src="/IMG_1435.png"
-alt="" width={700} height={475} className="object-cover object-bottom"/>
-</div>
+      <Foot />
     </main>
   );
 }
