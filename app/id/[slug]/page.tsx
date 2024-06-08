@@ -1,3 +1,5 @@
+// app/id/[slug]/page.tsx
+
 "use client";
 import { notFound } from "next/navigation";
 import {
