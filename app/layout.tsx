@@ -37,12 +37,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
           {children}
           <Footer />
         </ThemeProvider>
