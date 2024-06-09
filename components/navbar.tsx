@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MyModal from "@/components/menunav";
+import { signIn } from "@/auth.ts"
 const Navbar = () => {
   return (
     <nav className="sticky top-0 z-40 w-full flex-none border-b border-border/50 bg-secondary/80 backdrop-blur print:hidden">
@@ -33,13 +34,9 @@ const Navbar = () => {
           <div className="ml-auto flex h-full items-center space-x-2 lg:space-x-6">
             <div className="flex flex-row-reverse items-center gap-x-2">
               <div className="relative inline-block text-left">
+                
                 <div>
-                  <Link
-                    href="/login"
-                    className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-transparent py-2 pl-3 pr-2.5 text-sm font-semibold uppercase text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 lg:hidden"
-                  >
-                    Masuk
-                  </Link>
+                  <Link href="">Sign In</Link>
                 </div>
               </div>
             </div>

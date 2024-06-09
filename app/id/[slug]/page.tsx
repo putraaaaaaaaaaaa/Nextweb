@@ -22,7 +22,7 @@ import Nominal from "@/components/order/nominal";
 import Input from "@/components/order/input";
 import Jumlah from "@/components/order/jumlah";
 import Pay from "@/components/order/pay";
-import { Option } from './Option';
+import { Option } from "./Option";
 interface PageProps {
   params: {
     slug: string | null;
@@ -48,11 +48,9 @@ export default function Page({ params }: PageProps) {
     setSelectedOption(option);
   };
 
-  
-
   const calculatedPrice = selectedOption
-  ? selectedOption.harga * quantity
-  : null;
+    ? selectedOption.harga * quantity
+    : null;
   return (
     <main className="relative bg-gradient-theme">
       <div className="relative h-56 w-full bg-muted lg:h-[340px]">
@@ -208,8 +206,6 @@ export default function Page({ params }: PageProps) {
           <Input />
           <Jumlah onQuantityChange={handleQuantityChange} />
           <Pay selectedPrice={calculatedPrice} />
-          
-         
         </form>
       </div>
       <Foot />

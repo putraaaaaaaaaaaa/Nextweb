@@ -6,7 +6,8 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Radio, RadioGroup
+  Radio,
+  RadioGroup,
 } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { formatIDR } from "@/lib/formatIDR";
@@ -70,23 +71,26 @@ const Pay = ({ selectedPrice }: PayProps) => {
                                 <span className="flex w-full">
                                   <span className="flex w-full flex-col justify-between">
                                     <div>
-                                    <img 
-                                      alt="Logo"
-                                      src={plan.image}
-                                      className="max-h-5"
+                                      <img
+                                        alt="Logo"
+                                        src={plan.image}
+                                        className="max-h-5"
                                       />
                                     </div>
                                     <div className="flex w-full items-center justify-between">
                                       <div className="mt-2 w-full">
                                         <div className="mt-1.5 flex items-center gap-2">
-                                          <div className="relative z-30 text-xs font-semibold leading-4 text-background">{selectedPrice && formatIDR(selectedPrice)}</div>
+                                          <div className="relative z-30 text-xs font-semibold leading-4 text-background">
+                                            {selectedPrice &&
+                                              formatIDR(selectedPrice)}
+                                          </div>
                                         </div>
-                                        <div className="mt-0.5 h-px w-full bg-border">
-                                          </div>
-                                          <div>
-                                            <span className="block text-xxs italic text-background">Biaya Layanan +{plan.admin}%</span>
-                                          </div>
-                                        
+                                        <div className="mt-0.5 h-px w-full bg-border"></div>
+                                        <div>
+                                          <span className="block text-xxs italic text-background">
+                                            Biaya Layanan +{plan.admin}%
+                                          </span>
+                                        </div>
                                       </div>
                                     </div>
                                   </span>
@@ -99,18 +103,17 @@ const Pay = ({ selectedPrice }: PayProps) => {
                       <div className="w-full rounded-b-xl bg-foreground/50 px-4 py-3">
                         <div className="flex justify-end gap-x-2">
                           <div className="relative aspect-[6/2] w-10">
-                            <Image 
+                            <Image
                               alt="Logo"
                               className="object-scale-down"
                               src="/IMG_1051.webp"
                               fill
-                              />
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
                 </>
               )}
             </Disclosure>

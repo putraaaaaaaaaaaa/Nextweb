@@ -5,6 +5,13 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -22,6 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en" suppressHydrationWarning>
       <head />
       <body
@@ -37,10 +45,17 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           {children}
           <Footer />
         </ThemeProvider>
       </body>
     </html>
+      </ClerkProvider>
   );
 }
