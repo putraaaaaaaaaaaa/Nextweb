@@ -1,4 +1,3 @@
-"use client";
 const Input = () => {
   return (
     <section className="relative rounded-xl bg-card/50 shadow-2xl" id="2">
