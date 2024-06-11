@@ -62,7 +62,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
   );
 };
 
-const ProductProvider: React.FC = ({ children }) => {
+const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [selected, setSelected] = useState<null | {
     name: string;
     kode: string;
@@ -71,9 +71,9 @@ const ProductProvider: React.FC = ({ children }) => {
   }>(null);
 
   return (
-    <ProductContext.Provider value={{ selected, setSelected }}>
-      {children}
-    </ProductContext.Provider>
+    <ProductProvider>
+      <Main slug={slug} />
+    </ProductProvider>
   );
 };
 
