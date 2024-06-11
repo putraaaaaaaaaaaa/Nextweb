@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, MouseEvent } from "react";
+import React, { useState, ReactNode, useContext, MouseEvent } from "react";
 import { notFound } from "next/navigation";
 import {
   Disclosure,
@@ -57,7 +57,7 @@ const Page: React.FC<PageProps> = ({ params }) => {
 
   return (
     <ProductProvider>
-      <Main slug={slug} />
+      {slug!== null && <Main slug={slug} />}
     </ProductProvider>
   );
 };
@@ -71,9 +71,9 @@ const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   }>(null);
 
   return (
-    <ProductProvider>
-      <Main slug={slug} />
-    </ProductProvider>
+    <ProductContext.Provider value={{ selected, setSelected }}>
+      {children}
+    </ProductContext.Provider>
   );
 };
 
