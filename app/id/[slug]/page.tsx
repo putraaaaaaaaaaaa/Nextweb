@@ -231,8 +231,8 @@ interface ProductOptionProps {
   };
 }
 
-const ProductOption: React.FC<ProductOptionProps> = ({ denom }) => {
-  const { selected, setSelected } = useContext(ProductContext);
+  const ProductOption: React.FC<ProductOptionProps> = ({ denom }) => {
+    const { selected, setSelected } = useContext(ProductContext)?? {};
 
   return (
     <Radio
