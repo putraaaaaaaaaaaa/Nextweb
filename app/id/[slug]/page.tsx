@@ -211,7 +211,7 @@ interface ProductOptionsProps {
                 key={category.name}
                 category={category}
                 selected={selected?? null} // Add the nullish coalescing operator (??) to default to null if selected is undefined
-                setSelected={setSelected}
+                setSelected={setSelected?? (() => {})}
               />
             ))}
           </div>
