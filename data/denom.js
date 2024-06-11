@@ -1,0 +1,35 @@
+
+export const productCategories = [
+  {
+    name: "Special Items",
+    emoji: "🔥",
+    slug: "mobile-legends",
+    products: [
+      {
+        name: "Weekly Diamond Pass",
+        kode: "WDP",
+        harga: 28000,
+        image: "/IMG_1438.webp",
+        promo: false,
+      },
+      // ... other special items
+    ],
+  },
+  {
+    name: "Topup Instants",
+    emoji: "✨",
+    slug: "mobile-legends",
+    products: [
+      {
+        name: "3 Diamonds",
+        kode: "ML3",
+        harga: 1500,
+        image: "/IMG_1441.webp",
+        promo: false,
+        available: true,
+      },
+      // ... other top-up items
+    ],
+  },
+  // Add more categories here
+];

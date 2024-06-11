@@ -15,7 +15,11 @@ import { formatIDR } from "@/lib/formatIDR";
 import { NominalProps } from "./NominalProps";
 import { Option } from "./Option";
 const Nominal = ({ onSelect }: NominalProps) => {
-  let [selected, setSelected] = useState<Option>({ name: "", harga: 0, image: "" });
+  let [selected, setSelected] = useState<Option>({
+    name: "",
+    harga: 0,
+    image: "",
+  });
   const handleSelect = (option: Option) => {
     setSelected(option);
     onSelect(option);
@@ -36,7 +40,10 @@ const Nominal = ({ onSelect }: NominalProps) => {
             <h3 className="pb-4 text-sm/6 font-semibold text-card-foreground">
               🔥 Special Items
             </h3>
-            <RadioGroup value={selected} onChange={(value) => handleSelect(value)}>
+            <RadioGroup
+              value={selected}
+              onChange={(value) => handleSelect(value)}
+            >
               <div
                 className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3"
                 role="none"
@@ -87,7 +94,10 @@ const Nominal = ({ onSelect }: NominalProps) => {
             <h3 className="pb-4 text-sm/6 font-semibold text-card-foreground">
               ✨ Top Up Instant
             </h3>
-            <RadioGroup value={selected} onChange={(value) => handleSelect(value)}>
+            <RadioGroup
+              value={selected}
+              onChange={(value) => handleSelect(value)}
+            >
               <div
                 className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3"
                 role="none"

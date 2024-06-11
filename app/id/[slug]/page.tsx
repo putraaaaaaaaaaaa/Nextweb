@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import React, { useState, useContext, MouseEvent } from "react";
 import { notFound } from "next/navigation";
 import {
   Disclosure,
@@ -11,63 +12,67 @@ import {
   RadioGroup,
 } from "@headlessui/react";
 import clsx from "clsx";
-import { Fragment, useState } from "react";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Foot from "@/components/foot";
-import Nominal from "@/components/order/nominal";
-import Input from "@/components/order/input";
-import Jumlah from "@/components/order/jumlah";
-import Pay from "@/components/order/pay";
 import Tag from "@/components/order/tag";
 import Deskripsi from "@/components/order/deskripsi";
 import { formatIDR } from "@/lib/formatIDR";
-import { Option } from "./Option";
-import { toast } from 'react-hot-toast';
-import React, { MouseEvent } from 'react';
+import { toast } from "react-hot-toast";
+
+// Move data arrays to a separate file
+import { productCategories } from "@/data/denom";
+
+// Create a context for managing the selected product state
+const ProductContext = React.createContext(null);
+
 interface PageProps {
   params: {
     slug: string | null;
   };
 }
-export default function Page({ params }: PageProps) {
+
+const Page = ({ params }: PageProps) => {
   const { slug } = params;
-  if (!slug) {
+  const isValidSlug = ["mobile-legends", "b"].includes(slug || "");
+
+  if (!isValidSlug) {
     notFound();
+    return null; // Early return if slug is invalid
   }
-  const validSlugs = ["mobile-legends", "b"];
-  if (!validSlugs.includes(slug)) {
-    notFound();
-  }
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
-  const [quantity, setQuantity] = useState(1);
 
-  const handleQuantityChange = (newQuantity: number) => {
-    setQuantity(newQuantity);
-  };
+  return (
+    <ProductProvider>
+      <Main slug={slug} />
+    </ProductProvider>
+  );
+};
 
-  const handleSelect = (option: Option) => {
-    setSelectedOption(option);
-  };
+const ProductProvider = ({ children }) => {
+  const [selected, setSelected] = useState(null);
+  return (
+    <ProductContext.Provider value={{ selected, setSelected }}>
+      {children}
+    </ProductContext.Provider>
+  );
+};
 
-  const calculatedPrice = selectedOption
-    ? selectedOption.harga * quantity
-    : null;
-
-  const handleButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevent the default behavior of the button click
-    toast.error('This is an error!');
-  };
+const Main = ({ slug }) => {
   return (
     <main className="relative bg-gradient-theme">
-      <div className="relative h-56 w-full bg-muted lg:h-[340px]">
-        <Image
-          alt="Banner"
-          src="/IMG_1098.webp"
-          fill
-          className="object-cover object-center"
-        />
+      <Header slug={slug} />
+      <div className="container relative mt-8 grid grid-cols-3 gap-4 md:gap-8">
+        <Deskripsi />
+        <ProductOptions slug={slug} />
       </div>
+      <Foot />
+    </main>
+  );
+};
+
+const Header = ({ slug }) => {
+  return (
+    <>
+      <div className="relative h-56 w-full bg-muted lg:h-[340px]"></div>
       <div className="bg-title-product flex min-h-32 w-full items-center border-y bg-muted lg:min-h-[160px]">
         <div className="container flex items-center gap-2">
           <div>
@@ -85,107 +90,127 @@ export default function Page({ params }: PageProps) {
           </div>
           <div className="py-4 sm:py-0">
             <h1 className="text-xs font-bold uppercase leading-7 tracking-wider sm:text-lg">
-              Mobile Legends
+              {slug}
             </h1>
             <p className="text-xs font-medium sm:text-base/6">Moonton</p>
             <Tag />
           </div>
         </div>
       </div>
-      <div className="container relative mt-8 grid grid-cols-3 gap-4 md:gap-8">
-      <Deskripsi />
-        <form className="col-span-3 col-start-1 flex flex-col gap-4 lg:col-span-2 lg:gap-8">
-          <Nominal onSelect={handleSelect} />
-          <Input />
-          <Jumlah onQuantityChange={handleQuantityChange} />
-          <Pay selectedPrice={calculatedPrice} />
-          {!selectedOption ? (
-            <div className="flex flex-col gap-4">
-              <div className="rounded-lg border border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
-                <div className="flex items-center justify-center">
-                  <div className="text-center">Belum ada item produk yang dipilih.</div>
-                </div>
-              </div>
-              <button
-                className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full gap-2"
-                onClick={(event) => handleButtonClick(event)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-shopping-bag h-4 w-4"
-                >
-                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                  <path d="M3 6h18" />
-                  <path d="M16 10a4 4 0 0 1-8 0" />
-                </svg>
-                <span>Pesan Sekarang!</span>
-              </button>
-              
-            </div>
-          ) : (
-            <div className="sticky bg-secondary/80 backdrop-blur bottom-0 rounded-t-lg pb-4 flex flex-col gap-4">
-              <div className="rounded-lg border border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
-                <div className="flex items-center gap-4">
-                  <div className="aspect-square h-16">
-                    <Image
-                      alt="Mobile Legends"
-                      loading="lazy"
-                      width={300}
-                      height={300}
-                      className="aspect-square h-16 rounded-lg object-cover"
-                      src="/IMG_1227.png"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-xs">
-                      {selectedOption.name} x {quantity} Qty
-                    </div>
-                    <div className="flex items-center gap-2 pt-0.5 font-semibold">
-                      <span className="text-warning">{formatIDR(calculatedPrice)}</span>
-                      <span>-</span>
-                      <span></span>
-                    </div>
-                    <div className="text-xxs italic text-muted-foreground">
-                      ** Waktu proses instant
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button
-                className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full gap-2"
-                type="submit"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-shopping-bag h-4 w-4"
-                >
-                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                  <path d="M3 6h18" />
-                  <path d="M16 10a4 4 0 0 1-8 0" />
-                </svg>
-                <span>Pesan Sekarang!</span>
-              </button>
-            </div>
-          )}
-        </form>
-      </div>
-      <Foot />
-    </main>
+    </>
   );
-}
+};
+
+const ProductCategory = ({ category, selected, setSelected }) => {
+  return (
+    <section id={`${category.emoji} ${category.name}`}>
+      <h3 className="pb-4 text-sm/6 font-semibold text-card-foreground">
+        {category.emoji} {category.name}
+      </h3>
+      <RadioGroup
+        by="name"
+        value={selected}
+        onChange={setSelected}
+        aria-label={category.name}
+      >
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
+          {category.products.map((denom) => (
+            <ProductOption key={denom.kode} denom={denom} />
+          ))}
+        </div>
+      </RadioGroup>
+    </section>
+  );
+};
+
+const ProductOptions = ({ slug }) => {
+  const { selected, setSelected } = useContext(ProductContext);
+
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (!selected) {
+      toast.error("Silahkan pilih nominal terlebih dahulu");
+      return;
+    }
+
+    toast.success(`Item selected: ${selected.name}`);
+    // Add any additional logic or actions you want to perform when a product is selected
+  };
+
+  const filteredCategories = productCategories.filter(
+    (category) => category.slug === slug,
+  );
+
+  return (
+    <form className="col-span-3 col-start-1 flex flex-col gap-4 lg:col-span-2 lg:gap-8">
+      <section className="relative rounded-xl bg-card/50 shadow-2xl" id="1">
+        <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
+          <div className="flex h-10 w-10 items-center justify-center bg-primary font-semibold text-primary-foreground">
+            1
+          </div>
+          <h2 className="px-4 py-2 text-sm/6 font-semibold text-card-foreground">
+            Pilih Nominal
+          </h2>
+        </div>
+        <div className="p-4">
+          <div className="flex flex-col space-y-4">
+            {filteredCategories.map((category) => (
+              <ProductCategory
+                key={category.name}
+                category={category}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+      <button onClick={handleButtonClick}>Submit</button>
+    </form>
+  );
+};
+
+const ProductOption = ({ denom }) => {
+  const { selected, setSelected } = useContext(ProductContext);
+
+  return (
+    <Radio
+      as="div"
+      value={denom}
+      className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background text-order-variant-foreground bg-order-variant-image bg-cover bg-center bg-no-repeat ${
+        denom === selected
+          ? "ring-2 bj-shadow ring-offset-card ring-offset-2 ring-primary"
+          : ""
+      }`}
+    >
+      <span className="flex flex-1">
+        <span className="flex flex-col justify-between">
+          <span className="block text-xs font-semibold">{denom.name}</span>
+          <div>
+            <span
+              className={`mt-1 flex items-center text-xs font-semibold ${
+                denom === selected ? "text-primary" : ""
+              }`}
+            >
+              {formatIDR(denom.harga)}
+            </span>
+          </div>
+        </span>
+      </span>
+      {denom.image ? (
+        <div className="flex aspect-square w-8 items-center">
+          <Image
+            alt={denom.name}
+            src={denom.image}
+            width={300}
+            height={300}
+            className="object-contain object-right"
+          />
+        </div>
+      ) : null}
+    </Radio>
+  );
+};
+
+export default Page;
