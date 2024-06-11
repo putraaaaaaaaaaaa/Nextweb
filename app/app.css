@@ -55,7 +55,8 @@
     --warning: 54, 100%, 62%;
     --info: 205 89% 54%;
     --success: 120 50% 50%;
-    --popular-background: 210 40% 95%;
+    --order-variant-image: url("/IMG_1435.png");
+    --popular-image: url("/IMG_1493.png");
   }
 }
 

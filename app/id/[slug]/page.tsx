@@ -79,7 +79,7 @@ const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 const Main: React.FC<{ slug: string }> = ({ slug }) => {
   return (
-    <main className="relative bg-gradient-theme">
+    <main className="relative">
       <Header slug={slug} />
       <div className="container relative mt-8 grid grid-cols-3 gap-4 md:gap-8">
         <Deskripsi />
