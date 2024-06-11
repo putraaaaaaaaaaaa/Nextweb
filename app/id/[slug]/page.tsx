@@ -23,6 +23,7 @@ import Pay from "@/components/order/pay";
 import { formatIDR } from "@/lib/formatIDR";
 import { Option } from "./Option";
 import { toast } from 'react-hot-toast';
+import React, { MouseEvent } from 'react';
 interface PageProps {
   params: {
     slug: string | null;
@@ -52,7 +53,7 @@ export default function Page({ params }: PageProps) {
     ? selectedOption.harga * quantity
     : null;
 
-  const handleButtonClick = (event) => {
+  const handleButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); // Prevent the default behavior of the button click
     toast.error('This is an error!');
   };
@@ -220,7 +221,7 @@ export default function Page({ params }: PageProps) {
               </div>
               <button
                 className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full gap-2"
-                onClick={handleButtonClick}
+                onClick={(event) => handleButtonClick(event)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
