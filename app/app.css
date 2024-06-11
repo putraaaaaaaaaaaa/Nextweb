@@ -1,5 +1,5 @@
 @tailwind base;
-@tailwind utilities;
+
 
 @layer base {
   :root {
@@ -37,7 +37,7 @@
     --tw-ring-offset-shadow: 0 0% 100%; /* White color */
     --tw-ring-shadow: 0 0% 80%; /* Off-white color */
     --ring-offset-card: 210 18% 32%;
-    --popular-image: url("/IMG_1435.png");
+    --popular-image: url("/IMG_1493.png");
   }
 
   .dark {

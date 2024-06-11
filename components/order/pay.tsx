@@ -18,6 +18,7 @@ const special = [
 ];
 const Pay = ({ selectedPrice }: PayProps) => {
   let [selected, setSelected] = useState(null);
+  
   return (
     <section className="relative rounded-xl bg-card/50 shadow-2xl" id="2">
       <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
