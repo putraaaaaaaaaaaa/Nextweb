@@ -174,8 +174,8 @@ interface ProductOptionsProps {
   slug: string;
 }
 
-const ProductOptions: React.FC<ProductOptionsProps> = ({ slug }) => {
-  const { selected, setSelected } = useContext(ProductContext);
+  const ProductOptions: React.FC<ProductOptionsProps> = ({ slug }) => {
+    const { selected, setSelected } = useContext(ProductContext)?? {};
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
