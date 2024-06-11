@@ -52,9 +52,9 @@ export default function Page({ params }: PageProps) {
     ? selectedOption.harga * quantity
     : null;
 
-  const handleButtonClick = () => {
-    event.preventDefault(); 
-    toast.error('Silahkan pilih nominal yang ingin dibeli terlebih dahulu');
+  const handleButtonClick = (event) => {
+    event.preventDefault(); // Prevent the default behavior of the button click
+    toast.error('This is an error!');
   };
   return (
     <main className="relative bg-gradient-theme">
