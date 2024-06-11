@@ -12,7 +12,6 @@ import {
 } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Foot from "@/components/foot";

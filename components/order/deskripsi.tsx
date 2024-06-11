@@ -7,6 +7,7 @@ import {
   Label,
 } from "@headlessui/react";
 import clsx from "clsx";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const Deskripsi = () => {
   return (
