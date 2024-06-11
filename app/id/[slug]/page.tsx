@@ -23,7 +23,22 @@ import { toast } from "react-hot-toast";
 import { productCategories } from "@/data/denom";
 
 // Create a context for managing the selected product state
-const ProductContext = React.createContext(null);
+interface ProductContextType {
+  selected: null | {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+  };
+  setSelected: (selected: null | {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+  }) => void;
+}
+
+const ProductContext = React.createContext<ProductContextType | null>(null);
 
 interface PageProps {
   params: {
@@ -31,7 +46,7 @@ interface PageProps {
   };
 }
 
-const Page = ({ params }: PageProps) => {
+const Page: React.FC<PageProps> = ({ params }) => {
   const { slug } = params;
   const isValidSlug = ["mobile-legends", "b"].includes(slug || "");
 
@@ -47,8 +62,14 @@ const Page = ({ params }: PageProps) => {
   );
 };
 
-const ProductProvider = ({ children }) => {
-  const [selected, setSelected] = useState(null);
+const ProductProvider: React.FC = ({ children }) => {
+  const [selected, setSelected] = useState<null | {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+  }>(null);
+
   return (
     <ProductContext.Provider value={{ selected, setSelected }}>
       {children}
@@ -56,7 +77,7 @@ const ProductProvider = ({ children }) => {
   );
 };
 
-const Main = ({ slug }) => {
+const Main: React.FC<{ slug: string }> = ({ slug }) => {
   return (
     <main className="relative bg-gradient-theme">
       <Header slug={slug} />
@@ -69,7 +90,7 @@ const Main = ({ slug }) => {
   );
 };
 
-const Header = ({ slug }) => {
+const Header: React.FC<{ slug: string }> = ({ slug }) => {
   return (
     <>
       <div className="relative h-56 w-full bg-muted lg:h-[340px]"></div>
@@ -101,7 +122,33 @@ const Header = ({ slug }) => {
   );
 };
 
-const ProductCategory = ({ category, selected, setSelected }) => {
+interface ProductCategoryProps {
+  category: {
+    emoji: string;
+    name: string;
+    slug: string;
+    products: {
+      kode: string;
+      name: string;
+      harga: number;
+      image?: string;
+    }[];
+  };
+  selected: null | {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+  };
+  setSelected: (selected: null | {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+  }) => void;
+}
+
+const ProductCategory: React.FC<ProductCategoryProps> = ({ category, selected, setSelected }) => {
   return (
     <section id={`${category.emoji} ${category.name}`}>
       <h3 className="pb-4 text-sm/6 font-semibold text-card-foreground">
@@ -123,7 +170,11 @@ const ProductCategory = ({ category, selected, setSelected }) => {
   );
 };
 
-const ProductOptions = ({ slug }) => {
+interface ProductOptionsProps {
+  slug: string;
+}
+
+const ProductOptions: React.FC<ProductOptionsProps> = ({ slug }) => {
   const { selected, setSelected } = useContext(ProductContext);
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -171,7 +222,16 @@ const ProductOptions = ({ slug }) => {
   );
 };
 
-const ProductOption = ({ denom }) => {
+interface ProductOptionProps {
+  denom: {
+    kode: string;
+    name: string;
+    harga: number;
+    image?: string;
+  };
+}
+
+const ProductOption: React.FC<ProductOptionProps> = ({ denom }) => {
   const { selected, setSelected } = useContext(ProductContext);
 
   return (
@@ -180,7 +240,7 @@ const ProductOption = ({ denom }) => {
       value={denom}
       className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background text-order-variant-foreground bg-order-variant-image bg-cover bg-center bg-no-repeat ${
         denom === selected
-          ? "ring-2 bj-shadow ring-offset-card ring-offset-2 ring-primary"
+         ? "ring-2 bj-shadow ring-offset-card ring-offset-2 ring-primary"
           : ""
       }`}
     >
@@ -190,7 +250,7 @@ const ProductOption = ({ denom }) => {
           <div>
             <span
               className={`mt-1 flex items-center text-xs font-semibold ${
-                denom === selected ? "text-primary" : ""
+                denom === selected? "text-primary" : ""
               }`}
             >
               {formatIDR(denom.harga)}
@@ -198,7 +258,7 @@ const ProductOption = ({ denom }) => {
           </div>
         </span>
       </span>
-      {denom.image ? (
+      {denom.image? (
         <div className="flex aspect-square w-8 items-center">
           <Image
             alt={denom.name}

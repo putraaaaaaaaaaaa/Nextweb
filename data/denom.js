@@ -1,5 +1,16 @@
-
-export const productCategories = [
+export const productCategories: {
+  name: string;
+  emoji: string;
+  slug: string;
+  products: {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+    promo?: boolean;
+    available?: boolean;
+  }[];
+}[] = [
   {
     name: "Special Items",
     emoji: "🔥",
@@ -12,7 +23,7 @@ export const productCategories = [
         image: "/IMG_1438.webp",
         promo: false,
       },
-      // ... other special items
+      //... other special items
     ],
   },
   {
@@ -28,7 +39,7 @@ export const productCategories = [
         promo: false,
         available: true,
       },
-      // ... other top-up items
+      //... other top-up items
     ],
   },
   // Add more categories here
