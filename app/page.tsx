@@ -6,7 +6,7 @@ import Foot from "@/components/foot";
 import TabPanelComponent from "@/components/home/Panel";
 export default function Home() {
   return (
-    <main className="relative bg-gradient-theme">
+    <main className="relative bg-background">
       <Banner />
       <div className="flex flex-col gap-y-8 pt-8">
         <Populer />

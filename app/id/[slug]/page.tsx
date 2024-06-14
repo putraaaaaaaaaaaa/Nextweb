@@ -79,7 +79,7 @@ const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 const Main: React.FC<{ slug: string }> = ({ slug }) => {
   return (
-    <main className="relative bg-gradient-theme">
+    <main className="relative bg-background">
       <Header slug={slug} />
       <div className="container relative mt-8 grid grid-cols-3 gap-4 md:gap-8">
         <Deskripsi />
@@ -94,7 +94,7 @@ const Header: React.FC<{ slug: string }> = ({ slug }) => {
   return (
     <>
       <div className="relative h-56 w-full bg-muted lg:h-[340px]"></div>
-      <div className="bg-title-product flex min-h-32 w-full items-center border-y bg-muted lg:min-h-[160px]">
+      <div className="bg-title-product flex min-h-32 w-full items-center border-y bg-muted lg:min-h-[160px] bg-order-header-background text-order-header-foreground">
         <div className="container flex items-center gap-2">
           <div>
             <div className="flex items-start gap-4">
@@ -111,7 +111,7 @@ const Header: React.FC<{ slug: string }> = ({ slug }) => {
           </div>
           <div className="py-4 sm:py-0">
             <h1 className="text-xs font-bold uppercase leading-7 tracking-wider sm:text-lg">
-              {slug}
+              Mobile Legends
             </h1>
             <p className="text-xs font-medium sm:text-base/6">Moonton</p>
             <Tag />
@@ -238,9 +238,9 @@ interface ProductOptionProps {
     <Radio
       as="div"
       value={denom}
-      className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background text-order-variant-foreground bg-order-variant-image bg-cover bg-center bg-no-repeat ${
+      className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background  text-order-variant-foreground ${
         denom === selected
-         ? "ring-2 bj-shadow ring-offset-card ring-offset-2 ring-primary"
+         ? "ring-2 neko-shadow ring-offset-card ring-offset-2 ring-primary"
           : ""
       }`}
     >

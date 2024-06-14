@@ -43,7 +43,7 @@ const Banner = () => {
         </SwiperSlide>
       </Swiper>
       <div className="absolute inset-0 -z-10">
-        <div className="area pt-3">
+        <div className="area">
           <ul className="circles">
             <li></li>
             <li></li>
