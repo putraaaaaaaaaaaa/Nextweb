@@ -149,7 +149,7 @@ const Page: React.FC = () => {
                       {category.emoji} {category.name}
                     </h3>
                     <RadioGroup
-                      by="name"
+                      
                       value={selected}
                       onChange={setSelected}
                       aria-label={category.name}
