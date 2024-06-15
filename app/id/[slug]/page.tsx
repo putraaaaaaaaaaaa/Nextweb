@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import {
   Disclosure,
   DisclosureButton,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
   DisclosurePanel,
   Description,
   Input,
@@ -48,7 +51,7 @@ const Page: React.FC = () => {
     harga: number;
     image?: string;
   }>(null);
-
+  let [isOpen, setIsOpen] = useState(false);
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -69,6 +72,8 @@ const Page: React.FC = () => {
       toast.error("ID dan Server tidak boleh kosong");
       return;
     }
+
+    
 
     const apiUrl = "https://vip-reseller.co.id/api/game-feature"; // Replace with your API URL
     const data = {
@@ -91,7 +96,7 @@ const Page: React.FC = () => {
       const data = await response.json();
       const result = data.result;
       if (result === true) {
-        toast.success(`Username ${data.data}`);
+        setIsOpen(true);
       } else if (result === false) {
         toast.error(`${data.message}`);
       }
@@ -149,7 +154,6 @@ const Page: React.FC = () => {
                       {category.emoji} {category.name}
                     </h3>
                     <RadioGroup
-                      
                       value={selected}
                       onChange={setSelected}
                       aria-label={category.name}
@@ -254,7 +258,160 @@ const Page: React.FC = () => {
               </div>
             </div>
           </section>
-          <button onClick={handleButtonClick}>Submit</button>
+          {selected ? (
+            <div className="shad sticky bottom-0 rounded-t-lg pb-4 flex flex-col gap-4 bg-background">
+              <div className="rounded-lg border outline-gray-600 outline-1 outline-dashed border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
+                <div className="flex items-center gap-4">
+                  <div className="aspect-square h-16">
+                    <Image
+                      alt="banner"
+                      src="/IMG_1227.png"
+                      className="aspect-square h-16 rounded-lg object-cover"
+                      width={300}
+                      height={300}
+                    />
+                  </div>
+                  <div>
+                    <div className="text-xs">{selected.name} x 1 Qty</div>
+                    <div className="flex items-center gap-2 pt-0.5 font-semibold">
+                      <span className="text-warning">
+                        {formatIDR(selected.harga)}
+                      </span>
+                    </div>
+                    <div className="text-xxs italic text-muted-foreground">
+                      ** Waktu proses instan
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full gap-2"
+                onClick={handleButtonClick}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-shopping-bag h-4 w-4"
+                >
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                  <path d="M3 6h18" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+                <span>Pesan Sekarang</span>
+              </button>
+              <Dialog
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                className="relative z-50 font-sans"
+              >
+                <div className="fixed inset-0 bg-background/25" />
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                  <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <DialogPanel
+                      className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left text-foreground shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-100 translate-y-0 sm:scale-100
+                      "
+                    >
+                      <div>
+                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/50">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true"
+                            className="h-6 w-6 text-success"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12.75l6 6 9-13.5"
+                            />
+                          </svg>
+                        </div>
+                        <div className="mt-3 text-center text-sm sm:mt-5">
+                          <DialogTitle className="text-lg font-semibold leading-6 text-foreground">
+                            Buat Pesanan
+                          </DialogTitle>
+                          <Description className="pt-1">
+                            Pastikan data akun Anda dan produk yang Anda pilih
+                            valid dan sesuai.
+                          </Description>
+                          <div className="mt-2">
+                            <div className="my-4 grid grid-cols-3 gap-3 rounded-md bg-secondary/50 p-4 text-left text-sm text-secondary-foreground">
+                              <div>Username</div>
+                              <div className="col-span-2">: Lisan al Gaib</div>
+                              <div>ID</div>
+                              <div className="col-span-2">: 110718484</div>
+                              <div>Server</div>
+                              <div className="col-span-2">: 9273</div>
+                              <div>Item</div>
+                              <div className="col-span-2">: Coupon Pass</div>
+                              <div>Product</div>
+                              <div className="col-span-2">: Mobile Legends</div>
+                              <div>Payment</div>
+                              <div className="col-span-2">
+                                : QRIS OVO DANA GOPAY SHOPEPAY, DLL
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                        <button className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full">
+                          Pesan Sekarang!
+                        </button>
+                        <button
+                          className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md px-3 w-full"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Batalkan
+                        </button>
+                      </div>
+                    </DialogPanel>
+                  </div>
+                </div>
+              </Dialog>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 bg-background">
+              <div className="rounded-lg border outline-gray-600 outline-1 outline-dashed border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
+                <div className="text-center">
+                  Belum ada item produk yang dipilih.
+                </div>
+              </div>
+
+              <button
+                className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full gap-2"
+                onClick={handleButtonClick}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-shopping-bag h-4 w-4"
+                >
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                  <path d="M3 6h18" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+                <span>Pesan Sekarang</span>
+              </button>
+            </div>
+          )}
         </form>
       </div>
       <Foot />
