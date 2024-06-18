@@ -68,7 +68,7 @@ const Page: React.FC = () => {
       kode: "QRIS",
     },
   ];
-  const [pay, setPay] = useState(null);
+  const [pay, setPay] = useState(plans[0])
 
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
@@ -391,14 +391,15 @@ const Page: React.FC = () => {
                         as="div"
                         key={plan.kode}
                         value={plan}
-                        className="data-[checked]:ring-2 data-[checked]:ring-offset-card data-[checked]:ring-offset-2 data-[checked]:ring-primary relative flex cursor-pointer rounded-lg border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:px-5 md:py-3"
+                        className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background  text-order-variant-foreground ${
+                          plan === pay
+                            ? "ring-2 neko-shadow ring-offset-card ring-offset-2 ring-primary"
+                            : ""
+                        }`}
                       >
                         <div className="flex w-full flex-col items-start justify-between py-1 md:flex-row md:items-center">
                           <div>
-                            <span
-                              className="block pb-2.5 text-xs font-semibold sm:text-sm"
-                              id="headlessui-label-:rav:"
-                            >
+                            <span className="block pb-2.5 text-xs font-semibold sm:text-sm">
                               {plan.name}
                             </span>
                             <img
@@ -448,6 +449,8 @@ const Page: React.FC = () => {
                       <span className="text-warning">
                         {formatIDR(totalPrice)}
                       </span>
+                      <span>-</span>
+                      <span>{pay.name}</span>
                     </div>
                     <div className="text-xxs italic text-muted-foreground">
                       ** Waktu proses instan
@@ -551,6 +554,8 @@ const Page: React.FC = () => {
                                   </div>
                                   <div>Product</div>
                                   <div className="col-span-2">: {game}</div>
+                                  <div>Payment</div>
+                                  <div className="col-span-2">: {pay.name}</div>
                                 </div>
                               </div>
                             </div>
