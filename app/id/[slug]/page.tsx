@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, MouseEvent } from "react";
+import React, { useState, useEffect, useContext, MouseEvent } from "react";
 import { notFound } from "next/navigation";
 import {
   Disclosure,
@@ -11,6 +11,7 @@ import {
   Description,
   Input,
   Transition,
+  TransitionChild,
   Field,
   Label,
   Radio,
@@ -51,7 +52,42 @@ const Page: React.FC = () => {
     harga: number;
     image?: string;
   }>(null);
+
   let [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
+  const [game, setGame] = useState("");
+  const [id, setId] = useState("");
+  const [server, setServer] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const incrementQuantity = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    calculateTotalPrice(newQuantity);
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      calculateTotalPrice(newQuantity);
+    }
+  };
+
+    const calculateTotalPrice = (newQuantity: number) => {
+      if (selected) {
+        const newTotalPrice = newQuantity * selected.harga;
+        setTotalPrice(newTotalPrice);
+      } else {
+        setTotalPrice(0);
+      }
+    };
+
+  useEffect(() => {
+    calculateTotalPrice(quantity);
+  }, [quantity, selected]);
+
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -69,38 +105,27 @@ const Page: React.FC = () => {
     }
 
     if (id.value.trim() === "" || server.value.trim() === "") {
-      toast.error("ID dan Server tidak boleh kosong");
+      toast.error("Data akun tidak boleh kosong");
       return;
     }
 
+    setId(id.value);
+    setServer(server.value);
+
+    fetch(`https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`)
+     .then(response => response.json())
+     .then(data => {
+       if (data.success === true) {
+         setUsername(data.name);
+         setGame(data.game);
+         setIsOpen(true);
+       } else {
+         toast.error(`Akun tidak dapat ditemukan`);
+       }
+      });
+     
+
     
-
-    const apiUrl = "https://vip-reseller.co.id/api/game-feature"; // Replace with your API URL
-    const data = {
-      key: "P7S6yQhfMkl8y4AjprKIMMJ85R61i8SpP5qQCmJa8oYx4UcLo5leoHL4cQQgZo54",
-      sign: "a895bd30ee97625749f091612a0d25e2",
-      type: "get-nickname",
-      code: "mobile-legends",
-      target: id.value,
-      additional_target: server.value,
-    };
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams(data),
-    };
-
-    fetch(apiUrl, config).then(async (response) => {
-      const data = await response.json();
-      const result = data.result;
-      if (result === true) {
-        setIsOpen(true);
-      } else if (result === false) {
-        toast.error(`${data.message}`);
-      }
-    });
   };
 
   const filteredCategories = productCategories.filter(
@@ -258,6 +283,83 @@ const Page: React.FC = () => {
               </div>
             </div>
           </section>
+          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="3">
+            <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
+              <div className="flex h-10 w-10 items-center justify-center bg-primary font-semibold text-primary-foreground">
+                3
+              </div>
+              <h2 className="px-4 py-2 text-sm/6 font-semibold text-card-foreground">
+                Masukan Jumlah Pembelian
+              </h2>
+            </div>
+            <div className="p-4">
+              <div className="flex items-center gap-x-4">
+                <div className="flex-1">
+                  <div className="flex flex-col items-start">
+                    <input
+                      className="relative block w-full appearance-none rounded-lg border border-border bg-input px-3 py-2 text-xs text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-75"
+                      type="number"
+                      name="quantity"
+                      value={quantity}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value, 10);
+                        if (!isNaN(value) && value >= 1) {
+                          setQuantity(value);
+                          calculateTotalPrice(value);
+                        }
+                      }}
+                      min="1"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 w-9"
+                    type="button"
+                    onClick={incrementQuantity}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                      className="h-5 w-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4.5v15m7.5-7.5h-15"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 w-9"
+                    type="button"
+                    onClick={decrementQuantity}
+                    disabled={quantity === 1}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                      className="h-5 w-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 12h-15"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
           {selected ? (
             <div className="shad sticky bottom-0 rounded-t-lg pb-4 flex flex-col gap-4 bg-background">
               <div className="rounded-lg border outline-gray-600 outline-1 outline-dashed border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
@@ -272,10 +374,12 @@ const Page: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <div className="text-xs">{selected.name} x 1 Qty</div>
+                    <div className="text-xs">
+                      {selected.name} x {quantity} Qty
+                    </div>
                     <div className="flex items-center gap-2 pt-0.5 font-semibold">
                       <span className="text-warning">
-                        {formatIDR(selected.harga)}
+                        {formatIDR(totalPrice)}
                       </span>
                     </div>
                     <div className="text-xxs italic text-muted-foreground">
@@ -306,79 +410,107 @@ const Page: React.FC = () => {
                 </svg>
                 <span>Pesan Sekarang</span>
               </button>
-              <Dialog
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                className="relative z-50 font-sans"
-              >
-                <div className="fixed inset-0 bg-background/25" />
-                <div className="fixed inset-0 z-10 overflow-y-auto">
-                  <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <DialogPanel
-                      className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left text-foreground shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-100 translate-y-0 sm:scale-100
+              <Transition appear show={isOpen}>
+                <Dialog
+                  open={isOpen}
+                  onClose={() => setIsOpen(false)}
+                  className="relative z-50 font-sans"
+                >
+                  <div className="fixed inset-0 z-10 overflow-y-auto">
+                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                      <Transition.Child
+                        enter="backdrop-blur-sm opacity-100"
+                        enterFrom="backdrop-blur-0 opacity-0"
+                        enterTo="backdrop-blur-sm opacity-100"
+                        leave="backdrop-blur-sm opacity-100"
+                        leaveFrom="backdrop-blur-sm opacity-100"
+                        leaveTo="backdrop-blur-0 opacity-0"
+                      >
+                        <div className="fixed inset-0 bg-background/25" />
+                      </Transition.Child>
+                      <TransitionChild
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        enterTo="opacity-100 translate-y-0 sm:scale-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                        leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                      >
+                        <DialogPanel
+                          className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left text-foreground shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-100 translate-y-0 sm:scale-100
                       "
-                    >
-                      <div>
-                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/50">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                            className="h-6 w-6 text-success"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M4.5 12.75l6 6 9-13.5"
-                            />
-                          </svg>
-                        </div>
-                        <div className="mt-3 text-center text-sm sm:mt-5">
-                          <DialogTitle className="text-lg font-semibold leading-6 text-foreground">
-                            Buat Pesanan
-                          </DialogTitle>
-                          <Description className="pt-1">
-                            Pastikan data akun Anda dan produk yang Anda pilih
-                            valid dan sesuai.
-                          </Description>
-                          <div className="mt-2">
-                            <div className="my-4 grid grid-cols-3 gap-3 rounded-md bg-secondary/50 p-4 text-left text-sm text-secondary-foreground">
-                              <div>Username</div>
-                              <div className="col-span-2">: Lisan al Gaib</div>
-                              <div>ID</div>
-                              <div className="col-span-2">: 110718484</div>
-                              <div>Server</div>
-                              <div className="col-span-2">: 9273</div>
-                              <div>Item</div>
-                              <div className="col-span-2">: Coupon Pass</div>
-                              <div>Product</div>
-                              <div className="col-span-2">: Mobile Legends</div>
-                              <div>Payment</div>
-                              <div className="col-span-2">
-                                : QRIS OVO DANA GOPAY SHOPEPAY, DLL
+                        >
+                          <div>
+                            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/50">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                aria-hidden="true"
+                                className="h-6 w-6 text-success"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M4.5 12.75l6 6 9-13.5"
+                                />
+                              </svg>
+                            </div>
+                            <div className="mt-3 text-center text-sm sm:mt-5">
+                              <DialogTitle className="text-lg font-semibold leading-6 text-foreground">
+                                Buat Pesanan
+                              </DialogTitle>
+                              <Description className="pt-1">
+                                Pastikan data akun Anda dan produk yang Anda
+                                pilih valid dan sesuai.
+                              </Description>
+                              <div className="mt-2">
+                                <div className="my-4 grid grid-cols-3 gap-3 rounded-md bg-secondary/50 p-4 text-left text-sm text-secondary-foreground">
+                                  <div>Username</div>
+                                  <div className="col-span-2">: {username}</div>
+                                  <div>ID</div>
+                                  <div className="col-span-2">: {id}</div>
+                                  <div>Server</div>
+                                  <div className="col-span-2">: {server}</div>
+                                  <div>Item</div>
+                                  <div className="col-span-2">
+                                    : {selected.name}
+                                  </div>
+                                  <div>Price</div>
+                                  <div className="col-span-2">
+                                    : {formatIDR(totalPrice)}
+                                  </div>
+                                  <div>Product</div>
+                                  <div className="col-span-2">
+                                    : {game}
+                                  </div>
+                                  <div>Payment</div>
+                                  <div className="col-span-2">
+                                    : QRIS OVO DANA GOPAY SHOPEPAY, DLL
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                        <button className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full">
-                          Pesan Sekarang!
-                        </button>
-                        <button
-                          className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md px-3 w-full"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Batalkan
-                        </button>
-                      </div>
-                    </DialogPanel>
+                          <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                            <button className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full">
+                              Pesan Sekarang!
+                            </button>
+                            <button
+                              className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md px-3 w-full"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              Batalkan
+                            </button>
+                          </div>
+                        </DialogPanel>
+                      </TransitionChild>
+                    </div>
                   </div>
-                </div>
-              </Dialog>
+                </Dialog>
+              </Transition>
             </div>
           ) : (
             <div className="flex flex-col gap-4 bg-background">
