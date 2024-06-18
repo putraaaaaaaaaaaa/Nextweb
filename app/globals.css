@@ -157,3 +157,6 @@
 .bg-success\/50 {
   background-color: hsl(var(--success) / 0.5);
 }
+.w-square-diagonal {
+  width: 141.42%
+}

@@ -18,6 +18,8 @@ import {
   RadioGroup,
 } from "@headlessui/react";
 import clsx from "clsx";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Foot from "@/components/foot";
 import Tag from "@/components/order/tag";
@@ -44,7 +46,6 @@ interface ProductContextType {
 }
 
 const ProductContext = React.createContext<ProductContextType | null>(null);
-
 const Page: React.FC = () => {
   const [selected, setSelected] = useState<null | {
     name: string;
@@ -60,6 +61,14 @@ const Page: React.FC = () => {
   const [server, setServer] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+  const plans = [
+    {
+      name: "QRIS OVO DANA GOPAY SHOPEPAY, DLL",
+      image: "/IMG_1566.webp",
+      kode: "QRIS",
+    },
+  ];
+  const [pay, setPay] = useState(null);
 
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
@@ -75,14 +84,14 @@ const Page: React.FC = () => {
     }
   };
 
-    const calculateTotalPrice = (newQuantity: number) => {
-      if (selected) {
-        const newTotalPrice = newQuantity * selected.harga;
-        setTotalPrice(newTotalPrice);
-      } else {
-        setTotalPrice(0);
-      }
-    };
+  const calculateTotalPrice = (newQuantity: number) => {
+    if (selected) {
+      const newTotalPrice = newQuantity * selected.harga;
+      setTotalPrice(newTotalPrice);
+    } else {
+      setTotalPrice(0);
+    }
+  };
 
   useEffect(() => {
     calculateTotalPrice(quantity);
@@ -109,23 +118,27 @@ const Page: React.FC = () => {
       return;
     }
 
+    if (!pay) {
+      toast.error("Silahkan pilih metode pembayaran");
+      return;
+    }
+
     setId(id.value);
     setServer(server.value);
 
-    fetch(`https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`)
-     .then(response => response.json())
-     .then(data => {
-       if (data.success === true) {
-         setUsername(data.name);
-         setGame(data.game);
-         setIsOpen(true);
-       } else {
-         toast.error(`Akun tidak dapat ditemukan`);
-       }
+    fetch(
+      `https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`,
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success === true) {
+          setUsername(data.name);
+          setGame(data.game);
+          setIsOpen(true);
+        } else {
+          toast.error(`Akun tidak dapat ditemukan`);
+        }
       });
-     
-
-    
   };
 
   const filteredCategories = productCategories.filter(
@@ -360,6 +373,60 @@ const Page: React.FC = () => {
               </div>
             </div>
           </section>
+          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="4">
+            <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
+              <div className="flex h-10 w-10 items-center justify-center bg-primary font-semibold text-primary-foreground">
+                4
+              </div>
+              <h2 className="px-4 py-2 text-sm/6 font-semibold text-card-foreground">
+                Pilih Pembayaran
+              </h2>
+            </div>
+            <div className="p-4">
+              <dl className="flex w-full flex-col space-y-4">
+                <RadioGroup value={pay} onChange={setPay} aria-label="Payment">
+                  <div className="flex flex-col gap-4" role="none">
+                    {plans.map((plan) => (
+                      <Radio
+                        as="div"
+                        key={plan.kode}
+                        value={plan}
+                        className="data-[checked]:ring-2 data-[checked]:ring-offset-card data-[checked]:ring-offset-2 data-[checked]:ring-primary relative flex cursor-pointer rounded-lg border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:px-5 md:py-3"
+                      >
+                        <div className="flex w-full flex-col items-start justify-between py-1 md:flex-row md:items-center">
+                          <div>
+                            <span
+                              className="block pb-2.5 text-xs font-semibold sm:text-sm"
+                              id="headlessui-label-:rav:"
+                            >
+                              {plan.name}
+                            </span>
+                            <img
+                              src={plan.image}
+                              alt={plan.name}
+                              className="max-h-6"
+                            />
+                          </div>
+                          <div className="mt-3 w-full md:mt-0">
+                            <div className="relative mr-8 text-sm font-semibold sm:text-base w-full rounded-md border border-dashed py-1 text-center md:w-auto md:border-none md:text-right">
+                              {formatIDR(totalPrice)}
+                            </div>
+                          </div>
+                          <div className="w-[4.5rem] absolute aspect-square -top-[9px] -right-[9px] overflow-hidden rounded-sm">
+                            <div className="absolute top-0 left-0 bg-primary/50 h-2 w-2"></div>
+                            <div className="absolute bottom-0 right-0 bg-primary/50 h-2 w-2"></div>
+                            <div className="absolute w-square-diagonal py-1 text-center text-xxs font-semibold uppercase bottom-0 right-0 rotate-45 origin-bottom-right shadow-sm bg-primary text-primary-foreground">
+                              Best Price
+                            </div>
+                          </div>
+                        </div>
+                      </Radio>
+                    ))}
+                  </div>
+                </RadioGroup>
+              </dl>
+            </div>
+          </section>
           {selected ? (
             <div className="shad sticky bottom-0 rounded-t-lg pb-4 flex flex-col gap-4 bg-background">
               <div className="rounded-lg border outline-gray-600 outline-1 outline-dashed border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
@@ -483,13 +550,7 @@ const Page: React.FC = () => {
                                     : {formatIDR(totalPrice)}
                                   </div>
                                   <div>Product</div>
-                                  <div className="col-span-2">
-                                    : {game}
-                                  </div>
-                                  <div>Payment</div>
-                                  <div className="col-span-2">
-                                    : QRIS OVO DANA GOPAY SHOPEPAY, DLL
-                                  </div>
+                                  <div className="col-span-2">: {game}</div>
                                 </div>
                               </div>
                             </div>
