@@ -204,10 +204,10 @@ const Page: React.FC = () => {
                             as="div"
                             value={denom}
                             key={denom.kode}
-                            className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background  text-order-variant-foreground ${
+                            className={`relative flex cursor-pointer rounded-xl border border-transparent p-2.5 text-background shadow-sm outline-none md:p-4 ${
                               denom === selected
-                                ? "ring-2 neko-shadow ring-offset-card ring-offset-2 ring-primary"
-                                : ""
+                                ? "ring-2 bg-foreground neko-shadow ring-offset-card ring-offset-2 ring-primary"
+                                : "bg-foreground/75"
                             }`}
                           >
                             <span className="flex flex-1">
@@ -420,7 +420,7 @@ const Page: React.FC = () => {
                                       value={plan}
                                       className={`relative ${
                                         plan === pay
-                                          ? "flex cursor-pointer rounded-xl border border-transparent p-2.5 shadow-sm outline-none md:p-3 bj-shadow bg-foreground ring-2 ring-primary ring-offset-2 ring-offset-foreground/75"
+                                          ? "flex cursor-pointer rounded-xl border border-transparent p-2.5 shadow-sm outline-none md:p-3 neko-shadow bg-foreground ring-2 ring-primary ring-offset-2 ring-offset-foreground/75"
                                           : "flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 shadow-sm outline-none md:p-3"
                                       }`}
                                     >
