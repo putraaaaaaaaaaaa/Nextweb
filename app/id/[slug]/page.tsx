@@ -24,6 +24,7 @@ import Image from "next/image";
 import Foot from "@/components/foot";
 import Tag from "@/components/order/tag";
 import Deskripsi from "@/components/order/deskripsi";
+import Pay from "@/components/order/pay";
 import { formatIDR } from "@/lib/formatIDR";
 import { toast } from "react-hot-toast";
 import { productCategories } from "@/data/denom";
@@ -46,6 +47,10 @@ interface ProductContextType {
 }
 
 const ProductContext = React.createContext<ProductContextType | null>(null);
+const special = [
+  { name: "QRIS", admin: "0.7", image: "/IMG_1051.webp" },
+  { name: "Go-Pay", admin: "2", image: "/IMG_1052.webp" },
+];
 const Page: React.FC = () => {
   const [selected, setSelected] = useState<null | {
     name: string;
@@ -61,14 +66,11 @@ const Page: React.FC = () => {
   const [server, setServer] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
-  const plans = [
-    {
-      name: "QRIS OVO DANA GOPAY SHOPEPAY, DLL",
-      image: "/IMG_1566.webp",
-      kode: "QRIS",
-    },
-  ];
-  const [pay, setPay] = useState(plans[0])
+  const [pay, setPay] = useState<null | {
+    name: string;
+    admin: string;
+    image?: string;
+  }>(null);
 
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
@@ -384,47 +386,94 @@ const Page: React.FC = () => {
             </div>
             <div className="p-4">
               <dl className="flex w-full flex-col space-y-4">
-                <RadioGroup value={pay} onChange={setPay} aria-label="Payment">
-                  <div className="flex flex-col gap-4" role="none">
-                    {plans.map((plan) => (
-                      <Radio
-                        as="div"
-                        key={plan.kode}
-                        value={plan}
-                        className={`relative flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background  text-order-variant-foreground ${
-                          plan === pay
-                            ? "ring-2 neko-shadow ring-offset-card ring-offset-2 ring-primary"
-                            : ""
-                        }`}
-                      >
-                        <div className="flex w-full flex-col items-start justify-between py-1 md:flex-row md:items-center">
-                          <div>
-                            <span className="block pb-2.5 text-xs font-semibold sm:text-sm">
-                              {plan.name}
-                            </span>
-                            <img
-                              src={plan.image}
-                              alt={plan.name}
-                              className="max-h-6"
-                            />
-                          </div>
-                          <div className="mt-3 w-full md:mt-0">
-                            <div className="relative mr-8 text-sm font-semibold sm:text-base w-full rounded-md border border-dashed py-1 text-center md:w-auto md:border-none md:text-right">
-                              {formatIDR(totalPrice)}
+                <div
+                  className="flex w-full transform flex-col justify-between rounded-xl bg-background/50 text-left text-sm font-medium duration-300 focus:outline-none"
+                  data-headlessui-state
+                >
+                  <Disclosure>
+                    {({ open }) => (
+                      <>
+                        <div>
+                          <DisclosureButton className="w-full rounded-t-xl bg-card text-card-foreground disabled:opacity-75">
+                            <div className="flex w-full items-center justify-between px-4 py-2">
+                              <span className="transform text-sm/6 font-medium leading-7 duration-300">
+                                E-Wallet
+                              </span>
+                              <span className="ml-6 flex h-7 items-center">
+                                <ChevronDownIcon
+                                  className={clsx("w-5", open && "rotate-180")}
+                                />
+                              </span>
                             </div>
-                          </div>
-                          <div className="w-[4.5rem] absolute aspect-square -top-[9px] -right-[9px] overflow-hidden rounded-sm">
-                            <div className="absolute top-0 left-0 bg-primary/50 h-2 w-2"></div>
-                            <div className="absolute bottom-0 right-0 bg-primary/50 h-2 w-2"></div>
-                            <div className="absolute w-square-diagonal py-1 text-center text-xxs font-semibold uppercase bottom-0 right-0 rotate-45 origin-bottom-right shadow-sm bg-primary text-primary-foreground">
-                              Best Price
+                          </DisclosureButton>
+                          <div className="overflow-hidden">
+                            <DisclosurePanel className="px-4 pb-4 pt-2 text-sm">
+                              <RadioGroup value={pay} onChange={setPay}>
+                                <div
+                                  className="grid grid-cols-2 gap-4 pt-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3"
+                                  role="none"
+                                >
+                                  {special.map((plan) => (
+                                    <Radio
+                                      as="div"
+                                      key={plan.name}
+                                      value={plan}
+                                      className={`relative ${
+                                        plan === pay
+                                          ? "flex cursor-pointer rounded-xl border border-transparent p-2.5 shadow-sm outline-none md:p-3 bj-shadow bg-foreground ring-2 ring-primary ring-offset-2 ring-offset-foreground/75"
+                                          : "flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 shadow-sm outline-none md:p-3"
+                                      }`}
+                                    >
+                                      <span className="flex w-full">
+                                        <span className="flex w-full flex-col justify-between">
+                                          <div>
+                                            <img
+                                              alt="Logo"
+                                              src={plan.image}
+                                              className="max-h-5"
+                                            />
+                                          </div>
+                                          <div className="flex w-full items-center justify-between">
+                                            <div className="mt-2 w-full">
+                                              <div className="mt-1.5 flex items-center gap-2">
+                                                <div className="relative z-30 text-xs font-semibold leading-4 text-background">
+                                                  {totalPrice &&
+                                                    formatIDR(totalPrice)}
+                                                </div>
+                                              </div>
+                                              <div className="mt-0.5 h-px w-full bg-border"></div>
+                                              <div>
+                                                <span className="block text-xxs italic text-background">
+                                                  Biaya Layanan +{plan.admin}%
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </span>
+                                      </span>
+                                    </Radio>
+                                  ))}
+                                </div>
+                              </RadioGroup>
+                            </DisclosurePanel>
+                            <div className="w-full rounded-b-xl bg-foreground/50 px-4 py-3">
+                              <div className="flex justify-end gap-x-2">
+                                <div className="relative aspect-[6/2] w-10">
+                                  <Image
+                                    alt="Logo"
+                                    className="object-scale-down"
+                                    src="/IMG_1051.webp"
+                                    fill
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </Radio>
-                    ))}
-                  </div>
-                </RadioGroup>
+                      </>
+                    )}
+                  </Disclosure>
+                </div>
               </dl>
             </div>
           </section>
@@ -450,7 +499,12 @@ const Page: React.FC = () => {
                         {formatIDR(totalPrice)}
                       </span>
                       <span>-</span>
-                      <span>{pay.name}</span>
+                      {pay ? (
+              <span>{pay.name}</span>
+                      ) : (
+              <span></span>
+                      )}
+                      
                     </div>
                     <div className="text-xxs italic text-muted-foreground">
                       ** Waktu proses instan
@@ -554,8 +608,8 @@ const Page: React.FC = () => {
                                   </div>
                                   <div>Product</div>
                                   <div className="col-span-2">: {game}</div>
-                                  <div>Payment</div>
-                                  <div className="col-span-2">: {pay.name}</div>
+                                  
+                                  
                                 </div>
                               </div>
                             </div>
@@ -609,6 +663,107 @@ const Page: React.FC = () => {
                 <span>Pesan Sekarang</span>
               </button>
             </div>
+          )}
+          { selected && pay ? (
+      <Transition appear show={isOpen}>
+        <Dialog
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          className="relative z-50 font-sans"
+        >
+          <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <Transition.Child
+                enter="backdrop-blur-sm opacity-100"
+                enterFrom="backdrop-blur-0 opacity-0"
+                enterTo="backdrop-blur-sm opacity-100"
+                leave="backdrop-blur-sm opacity-100"
+                leaveFrom="backdrop-blur-sm opacity-100"
+                leaveTo="backdrop-blur-0 opacity-0"
+              >
+                <div className="fixed inset-0 bg-background/25" />
+              </Transition.Child>
+              <TransitionChild
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              >
+                <DialogPanel
+                  className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left text-foreground shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-100 translate-y-0 sm:scale-100
+              "
+                >
+                  <div>
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/50">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                        className="h-6 w-6 text-success"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12.75l6 6 9-13.5"
+                        />
+                      </svg>
+                    </div>
+                    <div className="mt-3 text-center text-sm sm:mt-5">
+                      <DialogTitle className="text-lg font-semibold leading-6 text-foreground">
+                        Buat Pesanan
+                      </DialogTitle>
+                      <Description className="pt-1">
+                        Pastikan data akun Anda dan produk yang Anda
+                        pilih valid dan sesuai.
+                      </Description>
+                      <div className="mt-2">
+                        <div className="my-4 grid grid-cols-3 gap-3 rounded-md bg-secondary/50 p-4 text-left text-sm text-secondary-foreground">
+                          <div>Username</div>
+                          <div className="col-span-2">: {username}</div>
+                          <div>ID</div>
+                          <div className="col-span-2">: {id}</div>
+                          <div>Server</div>
+                          <div className="col-span-2">: {server}</div>
+                          <div>Item</div>
+                          <div className="col-span-2">
+                            : {selected.name}
+                          </div>
+                          <div>Price</div>
+                          <div className="col-span-2">
+                            : {formatIDR(totalPrice)}
+                          </div>
+                          <div>Product</div>
+                          <div className="col-span-2">: {game}</div>
+                          <div>Payment</div>
+                          <div className="col-span-2">: {pay.name}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                    <button className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full">
+                      Pesan Sekarang!
+                    </button>
+                    <button
+                      className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md px-3 w-full"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Batalkan
+                    </button>
+                  </div>
+                </DialogPanel>
+              </TransitionChild>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+          ):(
+      <span></span>
           )}
         </form>
       </div>
