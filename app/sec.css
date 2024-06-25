@@ -4970,12 +4970,12 @@ input[type=number] {
   animation-timing-function: cubic-bezier(0, 0, .2, 1)
 }
 
-.bj-shadow {
+.neko-shadow {
   --tw-shadow: 0px 0px 14px 4px hsla(0, 0%, 82%, .3);
   --tw-shadow-colored: 0px 0px 14px 4px var(--tw-shadow-color)
 }
 
-.bj-shadow,
+.neko-shadow,
 .btn-order {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
 }

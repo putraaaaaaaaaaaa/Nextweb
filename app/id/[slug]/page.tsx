@@ -17,6 +17,8 @@ import {
   Radio,
   RadioGroup,
 } from "@headlessui/react";
+import { PhoneInput, DialCodePreview } from 'react-international-phone';
+import 'react-international-phone/style.css';
 import clsx from "clsx";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -71,6 +73,7 @@ const Page: React.FC = () => {
     admin: string;
     image?: string;
   }>(null);
+  const [phone, setPhone] = useState('');
 
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
@@ -475,6 +478,46 @@ const Page: React.FC = () => {
                   </Disclosure>
                 </div>
               </dl>
+            </div>
+          </section>
+          <section className="relative rounded-xl bg-card/50 shadow-2xl" id="5">
+            <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
+              <div className="flex h-10 w-10 items-center justify-center bg-primary font-semibold text-primary-foreground">
+                5
+              </div>
+              <h2 className="px-4 py-2 text-sm/6 font-semibold text-card-foreground">
+                Detail Kontak
+              </h2>
+            </div>
+            <div className="p-4">
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2">
+                  <label className="block text-xs font-medium text-foreground">No. WhatsApp</label>
+                  <div>
+                    
+                    <PhoneInput
+                      disableDialCodeAndPrefix={true}
+                      showDisabledDialCodeAndPrefix={true}
+                      defaultCountry="id"
+                      value={phone}
+                      placeholder="XXXXXXXXXXX"
+                      onChange={(phone) => setPhone(phone)}
+                    />
+                  </div>
+                  <span className="text-xxs italic text-card-foreground">**Nomor ini akan dihubungi jika terjadi masalah</span>
+                </div>
+                <p className="flex items-center gap-2 rounded-md bg-card px-4 py-2.5 text-xs/6 text-card-foreground">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info h-4 w-4">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                  </svg>
+                  <span>
+                    Jika ada kendala, kami akan menghubungi nomor WA kamu diatas
+                  </span>
+                </p>
+              </div>
+
             </div>
           </section>
           {selected ? (
