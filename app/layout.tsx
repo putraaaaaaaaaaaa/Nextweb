@@ -37,7 +37,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "bg-background text-foreground font-sans antialiased",
+          "bg-background bg-gradient-theme text-foreground font-sans antialiased",
           fontSans.variable,
         )}
       >

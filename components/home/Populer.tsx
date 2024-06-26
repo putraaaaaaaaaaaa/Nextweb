@@ -20,7 +20,7 @@ const Populer = () => {
           style={{ opacity: 1, transform: "none" }}
         >
           <Link
-            className="flex items-center gap-x-2 rounded-[--card-radius] bg-muted text-foreground duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background md:gap-x-3 bg-title-product bg-popular-background text-popular-foreground"
+            className="flex items-center gap-x-2 rounded-[--card-radius] bg-muted duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background md:gap-x-3 bg-popular-background text-popular-foreground bg-popular-image bg-cover bg-center bg-no-repeat"
             href="/id/mobile-legends"
           >
             <div className="flex items-center gap-3 p-[--card-padding]">
@@ -32,7 +32,7 @@ const Populer = () => {
                 height={56}
               />
               <div className="relative flex w-full flex-col">
-                <h2 className="w-[100px] truncate text-xxs font-semibold text-foreground sm:w-[125px] md:w-[150px] md:text-base lg:w-[175px]">
+                <h2 className="w-[100px] truncate font-bjcredits text-xxs font-semibold text-foreground sm:w-[125px] md:w-[150px] md:text-base lg:w-[175px]">
                   Mobile Legends
                 </h2>
                 <p className="text-xxs text-foreground md:text-sm">Moonton</p>

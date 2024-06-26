@@ -151,9 +151,9 @@ const Page: React.FC = () => {
   );
 
   return (
-    <main className="relative bg-background">
+    <main className="relative bg-gradient-theme">
       <div className="relative h-56 w-full bg-muted lg:h-[340px]"></div>
-      <div className="bg-title-product flex min-h-32 w-full items-center border-y bg-muted lg:min-h-[160px] bg-order-header-background text-order-header-foreground">
+      <div className="bg-title-product flex min-h-32 w-full items-center border-y bg-muted lg:min-h-[160px]">
         <div className="container flex items-center gap-2">
           <div>
             <div className="flex items-start gap-4">
@@ -207,10 +207,10 @@ const Page: React.FC = () => {
                             as="div"
                             value={denom}
                             key={denom.kode}
-                            className={`relative flex cursor-pointer rounded-xl border border-transparent p-2.5 text-background shadow-sm outline-none md:p-4 ${
+                            className={`relative ${
                               denom === selected
-                                ? "ring-2 bg-foreground neko-shadow ring-offset-card ring-offset-2 ring-primary"
-                                : "bg-foreground/75"
+                                ? "flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bj-shadow ring-2 ring-primary ring-offset-2 ring-offset-card bg-order-variant-background text-order-variant-foreground bg-order-variant-image bg-cover bg-center bg-no-repeat"
+                                : "flex cursor-pointer rounded-xl border border-transparent bg-foreground/75 p-2.5 text-background shadow-sm outline-none md:p-4 bg-order-variant-background text-order-variant-foreground bg-order-variant-image bg-cover bg-center bg-no-repeat"
                             }`}
                           >
                             <span className="flex flex-1">
@@ -522,7 +522,7 @@ const Page: React.FC = () => {
           </section>
           {selected ? (
             <div className="shad sticky bottom-0 rounded-t-lg pb-4 flex flex-col gap-4 bg-background">
-              <div className="rounded-lg border outline-gray-600 outline-1 outline-dashed border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
+              <div className="rounded-lg border border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
                 <div className="flex items-center gap-4">
                   <div className="aspect-square h-16">
                     <Image
@@ -677,7 +677,7 @@ const Page: React.FC = () => {
             </div>
           ) : (
             <div className="flex flex-col gap-4 bg-background">
-              <div className="rounded-lg border outline-gray-600 outline-1 outline-dashed border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
+              <div className="rounded-lg border border-dashed bg-secondary p-4 text-sm text-secondary-foreground">
                 <div className="text-center">
                   Belum ada item produk yang dipilih.
                 </div>

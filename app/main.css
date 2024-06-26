@@ -4,60 +4,97 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.75rem;
-    --warning: 54, 100%, 62%;
-    --info: 205 89% 54%;
-    --success: 120 50% 50%;
-    
-    --popular-background: 217.2 32.6% 17.5%; /* Dark Gray */
-    --popular-foreground: 210 40% 98%;
+      --font-sans: '__DM_Sans420ee6', '__DM_Sans_Fallback420ee6';
+      --font-bjcredits: '__Lexend_Deca4f5fc0', '__Lexend_Deca_Fallback4f5fc0';
+      --font-chakra: '__Chakra_Petch_e6c52c', '__Chakra_Petch_Fallback_e6c52c';
+      --recommendation-background: 240 5.26% 26.08%;
+      --recommendation-foreground: 60 9.09% 97.84%;
+      --recommendation-image: url('https://cdn.bangjeff.com/meta/background.png');
+      --popular-background: 240 5.26% 26.08%;
+      --popular-foreground: 60 9.09% 97.84%;
+      --popular-image: url('https://cdn.bangjeff.com/meta/background.png');
+
+      --order-variant: 240 5.26% 26.08%;
+      --order-variant-foreground: 60 9.09% 97.84%;
+      --order-variant-image: url(https://cdn.bangjeff.com/meta/background.png);
+
+      --auth-color: 24.58 94.98% 53.14%;
+      --auth-gradient-from: 24.58 94.98% 53.14%;
+      --auth-gradient-to: 349.72 89.16% 60.2%;
+
+      --background: 240 5.88% 10%;
+      --foreground: 60 9.09% 97.84%;
+      --card: 240 5.26% 26.08%;
+      --card-foreground: 60 9.09% 97.84%;
+      --popover: 240 3.7% 15.88%;
+      --popover-foreground: 60 9.09% 97.84%;
+      --primary: 24.58 94.98% 53.14%;
+      --primary-foreground: 60 9.09% 97.84%;
+      --secondary: 240 10% 3.92%;
+      --secondary-foreground: 60 9.09% 97.84%;
+      --muted: 240 3.7% 15.88%;
+      --muted-foreground: 60 9.09% 97.84%;
+      --accent: 225 3.28% 23.92%;
+      --accent-foreground: 60 9.09% 97.84%;
+      --success: 142.09 71.18% 44.9%;
+      --success-foreground: 60 9.09% 97.84%;
+      --warning: 45.2 93.31% 46.86%;
+      --warning-foreground: 60 9.09% 97.84%;
+      --info: 189.03 93.64% 43.14%;
+      --info-foreground: 204 100% 97.06%;
+      --destructive: 0 84.24% 60.2%;
+      --destructive-foreground: 60 9.09% 97.84%;
+      --border: 240 5.26% 26.08%;
+      --input: 240 5.26% 26.08%;
+      --ring: 24.58 94.98% 53.14%;
+      --radius: 0.5rem;
+      --gradient-active: true;
+      --gradient-dir: to bottom right;
+      --gradient-from: #525468;
+      --gradien-from-stop: 0%;
+      --gradient-via: #18181b;
+      --gradient-via-stop: 50%;
+      --gradient-to: #09090b;
+      --gradient-to-stop: 100%;
+      --gradient-theme: linear-gradient(to bottom right, #525468 0%, #18181b 50%, #09090b 100%);
   }
 
+
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 210 60% 20%;
-    --card-foreground: 210 40% 98%; /* Light */
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --warning: 54, 100%, 62%;
-    --info: 205 89% 54%;
-    --success: 120 50% 50%;
-    
-    --popular-background: 210 40% 13%; /* Darker Gray */
-    --popular-foreground: 222.2 84% 96%;
+      --background: 240 5.88% 10%;
+      --foreground: 60 9.09% 97.84%;
+      --card: 240 5.26% 26.08%;
+      --card-foreground: 60 9.09% 97.84%;
+      --popover: 240 3.7% 15.88%;
+      --popover-foreground: 60 9.09% 97.84%;
+      --primary: 24.58 94.98% 53.14%;
+      --primary-foreground: 60 9.09% 97.84%;
+      --secondary: 240 10% 3.92%;
+      --secondary-foreground: 60 9.09% 97.84%;
+      --muted: 240 3.7% 15.88%;
+      --muted-foreground: 60 9.09% 97.84%;
+      --accent: 225 3.28% 23.92%;
+      --accent-foreground: 60 9.09% 97.84%;
+      --success: 142.09 71.18% 44.9%;
+      --success-foreground: 136.36 73.33% 97.06%;
+      --warning: 48 95.83% 52.94%;
+      --warning-foreground: 60 9.09% 97.84%;
+      --info: 198 93.14% 60%;
+      --info-foreground: 204 100% 97.06%;
+      --destructive: 0 72.22% 50.59%;
+      --destructive-foreground: 60 9.09% 97.84%;
+      --border: 240 5.26% 26.08%;
+      --input: 240 5.26% 26.08%;
+      --ring: 24.58 94.98% 53.14%;
+      --gradient-active: true;
+      --gradient-dir: to bottom right;
+      --gradient-from: 234.55 11.83% 36.47%;
+      --gradien-from-stop: 0%;
+      --gradient-via: 240 5.88% 10%;
+      --gradient-via-stop: 50%;
+      --gradient-to: 240 10% 3.92%;
+      --gradient-to-stop: 100%;
+      --gradient-stops: 0%, 50%, 100%;
   }
 }
 @layer base {
