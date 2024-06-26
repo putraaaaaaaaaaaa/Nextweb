@@ -18,7 +18,7 @@ export const config = {
   matcher: [
     "/",
     "/((?!_next|api|.*\\.).*)",
-    "/api/login",
-    "/api/logout",
+    "/api/sign-in",
+    "/api/sign-out",
   ],
 };
