@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import MyModal from "@/components/menunav";
-import SignIn from "@/components/sign-in";
 const Navbar = () => {
   return (
     <nav className="sticky top-0 z-40 w-full flex-none border-b border-border/50 bg-secondary/80 backdrop-blur print:hidden">
@@ -36,7 +35,7 @@ const Navbar = () => {
               <div className="relative inline-block text-left">
                 
                 <div>
-                  <SignIn />
+                  Masuk
                 </div>
               </div>
             </div>
