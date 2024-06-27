@@ -3,15 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import MyModal from "@/components/menunav";
 import Drop from "@/components/drop";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   ArchiveBoxXMarkIcon,
   ChevronDownIcon,
   PencilIcon,
   Square2StackIcon,
   TrashIcon,
-} from '@heroicons/react/16/solid'
-import { CircleUser, LogIn } from 'lucide-react';
+} from "@heroicons/react/16/solid";
+import { CircleUser, LogIn } from "lucide-react";
 const Navbar = () => {
   return (
     <nav className="sticky top-0 z-40 w-full flex-none border-b border-border/50 bg-secondary/80 backdrop-blur print:hidden">
@@ -61,28 +61,27 @@ const Navbar = () => {
                     </svg>
                   </MenuButton>
                   <MenuItems
+                    as="div"
                     className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-muted rounded-md bg-background shadow-lg ring-1 ring-muted ring-opacity-5 focus:outline-none transition ease-in duration-75 transform opacity-100 scale-100"
-                    >
+                  >
                     <div className="py-1">
-                      <MenuItem
-                        className="text-foreground group flex w-full items-center px-4 py-2 text-sm"
-                        >
-                         
-                        <Link className="ml-4"
-                          href="/sign-in">
-                          Masuk</Link>
+                      <MenuItem>
+                        <button
+                          className="text-foreground group flex w-full items-center px-4 py-2 text-sm">
+                          <Link className="ml-4" href="/sign-in">
+                            Masuk
+                          </Link>
+                        </button>
                       </MenuItem>
-                      <MenuItem
-                        className="text-foreground group flex w-full items-center px-4 py-2 text-sm"
-                        >
-
-                        <Link className="ml-4"
-                          href="/sign-Up">
-                          Daftar</Link>
+                      <MenuItem>
+                        <button
+                          className="text-foreground group flex w-full items-center px-4 py-2 text-sm">
+                          <Link className="ml-4" href="/sign-up">
+                            Daftar
+                          </Link>
+                        </button>
                       </MenuItem>
                     </div>
-                    
-                  
                   </MenuItems>
                 </Menu>
               </div>

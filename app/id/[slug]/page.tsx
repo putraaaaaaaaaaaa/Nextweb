@@ -17,8 +17,8 @@ import {
   Radio,
   RadioGroup,
 } from "@headlessui/react";
-import { PhoneInput, DialCodePreview } from 'react-international-phone';
-import 'react-international-phone/style.css';
+import { PhoneInput, DialCodePreview } from "react-international-phone";
+import "react-international-phone/style.css";
 import clsx from "clsx";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
@@ -73,7 +73,7 @@ const Page: React.FC = () => {
     admin: string;
     image?: string;
   }>(null);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState("");
 
   const incrementQuantity = () => {
     const newQuantity = quantity + 1;
@@ -102,6 +102,10 @@ const Page: React.FC = () => {
     calculateTotalPrice(quantity);
   }, [quantity, selected]);
 
+  const isValidPhoneNumber = (number: string): boolean => {
+    return number.length >= 11 && number.length <= 15;
+  };
+
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -127,24 +131,17 @@ const Page: React.FC = () => {
       toast.error("Silahkan pilih metode pembayaran");
       return;
     }
-    const isValidPhoneNumber = (number) => {
-      // Check if the number is between 11 and 15 digits
-      return number.length >= 11 && number.length <= 15;
-    };
+
     if (!phone) {
       toast.error("Nomer Whatsapp tidak boleh kosong");
       return;
     }
-
+    
     if (!isValidPhoneNumber(phone)) {
-      toast.error("Nomer Whatsapp harus terdiri dari 11-15 angka");
+      toast.error("Masukan nomer Whatsapp yang valid");
       return;
     }
 
-    // If we reach here, the phone number is valid
-    // Proceed with form submission or further processing
-    console.log("Valid phone number:", phone);
-    
     setId(id.value);
     setServer(server.value);
 
@@ -509,27 +506,44 @@ const Page: React.FC = () => {
             <div className="p-4">
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-2">
-                  <label className="block text-xs font-medium text-foreground">No. WhatsApp</label>
+                  <label className="block text-xs font-medium text-foreground">
+                    No. WhatsApp
+                  </label>
                   <div>
-                    
                     <PhoneInput
                       defaultCountry="id"
                       value={phone}
-                      placeholder="XXXXXXXXXXX"
-                      onChange={(newPhone) => {
-                        // Remove any non-digit characters and limit to 15 digits
-                        const digitsOnly = newPhone.replace(/\D/g, '').slice(0, 15);
+                      onChange={(phone) => {
+                        const cleanedPhone = phone.startsWith("+")
+                          ? phone.slice(1)
+                          : phone;
+                       
+                        const digitsOnly = cleanedPhone.replace(/\D/g, "");
                         setPhone(digitsOnly);
                       }}
-                      disableDialCodeAndPrefix={true}
-                      showDisabledDialCodeAndPrefix={true}
-                      disableDialCodePrefill={true}
+                      
+                      forceDialCode={true}
+                      placeholder="XXXXXXXXXXX"
                     />
+                  
                   </div>
-                  <span className="text-xxs italic text-card-foreground">**Nomor ini akan dihubungi jika terjadi masalah</span>
+                  <span className="text-xxs italic text-card-foreground">
+                    **Nomor ini akan dihubungi jika terjadi masalah
+                  </span>
                 </div>
                 <p className="flex items-center gap-2 rounded-md bg-card px-4 py-2.5 text-xs/6 text-card-foreground">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-info h-4 w-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-info h-4 w-4"
+                  >
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 16v-4" />
                     <path d="M12 8h.01" />
@@ -539,7 +553,6 @@ const Page: React.FC = () => {
                   </span>
                 </p>
               </div>
-
             </div>
           </section>
           {selected ? (
@@ -564,12 +577,7 @@ const Page: React.FC = () => {
                         {formatIDR(totalPrice)}
                       </span>
                       <span>-</span>
-                      {pay ? (
-              <span>{pay.name}</span>
-                      ) : (
-              <span></span>
-                      )}
-                      
+                      {pay ? <span>{pay.name}</span> : <span></span>}
                     </div>
                     <div className="text-xxs italic text-muted-foreground">
                       ** Waktu proses instan
@@ -673,8 +681,6 @@ const Page: React.FC = () => {
                                   </div>
                                   <div>Product</div>
                                   <div className="col-span-2">: {game}</div>
-                                  
-                                  
                                 </div>
                               </div>
                             </div>
@@ -729,106 +735,106 @@ const Page: React.FC = () => {
               </button>
             </div>
           )}
-          { selected && pay ? (
-      <Transition appear show={isOpen}>
-        <Dialog
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-          className="relative z-50 font-sans"
-        >
-          <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-              <Transition.Child
-                enter="backdrop-blur-sm opacity-100"
-                enterFrom="backdrop-blur-0 opacity-0"
-                enterTo="backdrop-blur-sm opacity-100"
-                leave="backdrop-blur-sm opacity-100"
-                leaveFrom="backdrop-blur-sm opacity-100"
-                leaveTo="backdrop-blur-0 opacity-0"
+          {selected && pay ? (
+            <Transition appear show={isOpen}>
+              <Dialog
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+                className="relative z-50 font-sans"
               >
-                <div className="fixed inset-0 bg-background/25" />
-              </Transition.Child>
-              <TransitionChild
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                enterTo="opacity-100 translate-y-0 sm:scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              >
-                <DialogPanel
-                  className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left text-foreground shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-100 translate-y-0 sm:scale-100
-              "
-                >
-                  <div>
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/50">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                        className="h-6 w-6 text-success"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
-                    </div>
-                    <div className="mt-3 text-center text-sm sm:mt-5">
-                      <DialogTitle className="text-lg font-semibold leading-6 text-foreground">
-                        Buat Pesanan
-                      </DialogTitle>
-                      <Description className="pt-1">
-                        Pastikan data akun Anda dan produk yang Anda
-                        pilih valid dan sesuai.
-                      </Description>
-                      <div className="mt-2">
-                        <div className="my-4 grid grid-cols-3 gap-3 rounded-md bg-secondary/50 p-4 text-left text-sm text-secondary-foreground">
-                          <div>Username</div>
-                          <div className="col-span-2">: {username}</div>
-                          <div>ID</div>
-                          <div className="col-span-2">: {id}</div>
-                          <div>Server</div>
-                          <div className="col-span-2">: {server}</div>
-                          <div>Item</div>
-                          <div className="col-span-2">
-                            : {selected.name}
-                          </div>
-                          <div>Price</div>
-                          <div className="col-span-2">
-                            : {formatIDR(totalPrice)}
-                          </div>
-                          <div>Product</div>
-                          <div className="col-span-2">: {game}</div>
-                          <div>Payment</div>
-                          <div className="col-span-2">: {pay.name}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                    <button className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full">
-                      Pesan Sekarang!
-                    </button>
-                    <button
-                      className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md px-3 w-full"
-                      onClick={() => setIsOpen(false)}
+                <div className="fixed inset-0 z-10 overflow-y-auto">
+                  <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <Transition.Child
+                      enter="backdrop-blur-sm opacity-100"
+                      enterFrom="backdrop-blur-0 opacity-0"
+                      enterTo="backdrop-blur-sm opacity-100"
+                      leave="backdrop-blur-sm opacity-100"
+                      leaveFrom="backdrop-blur-sm opacity-100"
+                      leaveTo="backdrop-blur-0 opacity-0"
                     >
-                      Batalkan
-                    </button>
+                      <div className="fixed inset-0 bg-background/25" />
+                    </Transition.Child>
+                    <TransitionChild
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                      enterTo="opacity-100 translate-y-0 sm:scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                      leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    >
+                      <DialogPanel
+                        className="relative transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left text-foreground shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-100 translate-y-0 sm:scale-100
+              "
+                      >
+                        <div>
+                          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/50">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                              className="h-6 w-6 text-success"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M4.5 12.75l6 6 9-13.5"
+                              />
+                            </svg>
+                          </div>
+                          <div className="mt-3 text-center text-sm sm:mt-5">
+                            <DialogTitle className="text-lg font-semibold leading-6 text-foreground">
+                              Buat Pesanan
+                            </DialogTitle>
+                            <Description className="pt-1">
+                              Pastikan data akun Anda dan produk yang Anda pilih
+                              valid dan sesuai.
+                            </Description>
+                            <div className="mt-2">
+                              <div className="my-4 grid grid-cols-3 gap-3 rounded-md bg-secondary/50 p-4 text-left text-sm text-secondary-foreground">
+                                <div>Username</div>
+                                <div className="col-span-2">: {username}</div>
+                                <div>ID</div>
+                                <div className="col-span-2">: {id}</div>
+                                <div>Server</div>
+                                <div className="col-span-2">: {server}</div>
+                                <div>Item</div>
+                                <div className="col-span-2">
+                                  : {selected.name}
+                                </div>
+                                <div>Price</div>
+                                <div className="col-span-2">
+                                  : {formatIDR(totalPrice)}
+                                </div>
+                                <div>Product</div>
+                                <div className="col-span-2">: {game}</div>
+                                <div>Payment</div>
+                                <div className="col-span-2">: {pay.name}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                          <button className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-8 rounded-md px-3 w-full">
+                            Pesan Sekarang!
+                          </button>
+                          <button
+                            className="inline-flex items-center justify-center whitespace-nowrap text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md px-3 w-full"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            Batalkan
+                          </button>
+                        </div>
+                      </DialogPanel>
+                    </TransitionChild>
                   </div>
-                </DialogPanel>
-              </TransitionChild>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-          ):(
-      <span></span>
+                </div>
+              </Dialog>
+            </Transition>
+          ) : (
+            <span></span>
           )}
         </form>
       </div>
