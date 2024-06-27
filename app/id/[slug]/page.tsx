@@ -174,7 +174,7 @@ const Page: React.FC = () => {
               <div className="product-thumbnail-container relative -top-28">
                 <Image
                   alt="Thumbnail"
-                  src="/IMG_1227.png"
+                  src="/thumbnail/ml.webp"
                   width={300}
                   height={300}
                   className="z-20 -mb-14 aspect-square w-32 rounded-2xl object-cover shadow-2xl md:-mb-20 md:w-60"
