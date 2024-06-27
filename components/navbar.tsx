@@ -66,16 +66,14 @@ const Navbar = () => {
                   >
                     <div className="py-1">
                       <MenuItem>
-                        <button
-                          className="text-foreground group flex w-full items-center px-4 py-2 text-sm">
+                        <button className="text-foreground group flex w-full items-center px-4 py-2 text-sm">
                           <Link className="ml-4" href="/sign-in">
                             Masuk
                           </Link>
                         </button>
                       </MenuItem>
                       <MenuItem>
-                        <button
-                          className="text-foreground group flex w-full items-center px-4 py-2 text-sm">
+                        <button className="text-foreground group flex w-full items-center px-4 py-2 text-sm">
                           <Link className="ml-4" href="/sign-up">
                             Daftar
                           </Link>
