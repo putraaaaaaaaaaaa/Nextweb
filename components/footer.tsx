@@ -11,11 +11,32 @@ const Footer = () => {
         Footer
       </h2>
       <div className="container py-12 pb-8">
-        <p className="text-center text-sm leading-6 text-foreground">
-          No #1 supplier top up game & voucher terlaris, murah, aman legal 100%
-          buka 24 Jam dengan payment terlengkap Indonesia
-        </p>
-        <div className="xl:grid xl:gap-8 xl:grid-cols-2">
+        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+          <div className="space-y-8">
+            <Image
+              alt="logo"
+              width={64}
+              height={64}
+              className="h-16 w-auto"
+              src="/IMG_1131.webp"
+            />
+            <p className="text-sm leading-6 text-foreground">
+            NUE PEDIA adalah tempat top up games yang aman, murah dan terpercaya. Proses cepat 1-3 Detik. Open 24 jam. Payment terlengkap. Jika ada kendala silahkan klik logo CS pada kanan bawah di website ini.
+            </p>
+            <div className="flex space-x-6">
+              <Link
+                href="https://www.instagram.com/sptra.re/"
+                className="text-murky-400 hover:text-murky-500"
+                >
+                <span className="sr-only">Instagram</span>
+                <Image 
+                  src="/IMG_1680.webp"
+                  width={24}
+                  height={24}
+                  alt="logo"/>
+              </Link>
+            </div>
+          </div>
           <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2">
             <div>
               <h3 className="text-sm font-semibold leading-6 text-primary">

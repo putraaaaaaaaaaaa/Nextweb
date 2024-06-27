@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "react-hot-toast";
+import { GoogleTagManager } from '@next/third-parties/google'
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
+      <GoogleTagManager gtmId="GTM-55FVQXDD" />
       <body
         className={cn(
           "bg-background bg-gradient-theme text-foreground font-sans antialiased",

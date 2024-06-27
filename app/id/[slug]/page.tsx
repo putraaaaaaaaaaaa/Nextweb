@@ -127,7 +127,24 @@ const Page: React.FC = () => {
       toast.error("Silahkan pilih metode pembayaran");
       return;
     }
+    const isValidPhoneNumber = (number) => {
+      // Check if the number is between 11 and 15 digits
+      return number.length >= 11 && number.length <= 15;
+    };
+    if (!phone) {
+      toast.error("Nomer Whatsapp tidak boleh kosong");
+      return;
+    }
 
+    if (!isValidPhoneNumber(phone)) {
+      toast.error("Nomer Whatsapp harus terdiri dari 11-15 angka");
+      return;
+    }
+
+    // If we reach here, the phone number is valid
+    // Proceed with form submission or further processing
+    console.log("Valid phone number:", phone);
+    
     setId(id.value);
     setServer(server.value);
 
@@ -496,12 +513,17 @@ const Page: React.FC = () => {
                   <div>
                     
                     <PhoneInput
-                      disableDialCodeAndPrefix={true}
-                      showDisabledDialCodeAndPrefix={true}
                       defaultCountry="id"
                       value={phone}
                       placeholder="XXXXXXXXXXX"
-                      onChange={(phone) => setPhone(phone)}
+                      onChange={(newPhone) => {
+                        // Remove any non-digit characters and limit to 15 digits
+                        const digitsOnly = newPhone.replace(/\D/g, '').slice(0, 15);
+                        setPhone(digitsOnly);
+                      }}
+                      disableDialCodeAndPrefix={true}
+                      showDisabledDialCodeAndPrefix={true}
+                      disableDialCodePrefill={true}
                     />
                   </div>
                   <span className="text-xxs italic text-card-foreground">**Nomor ini akan dihubungi jika terjadi masalah</span>
