@@ -33,7 +33,6 @@ const Foot = () => {
           className="fill-secondary transition-all delay-150 duration-300 ease-in-out"
         />
       </svg>
-
     </div>
   );
 };

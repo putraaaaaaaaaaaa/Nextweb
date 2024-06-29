@@ -59,123 +59,121 @@ const special = [
   { name: "Go-Pay", admin: "2", image: "/IMG_1052.webp" },
 ];
 
-  export default function Page({ params }: PageProps) {
-    const { slug } = params;
-    if (!slug) {
-      notFound();
-    }
-    const validSlugs = ["mobile-legends", "b"];
-    if (!validSlugs.includes(slug)) {
-      notFound();
-    }
+export default function Page({ params }: PageProps) {
+  const { slug } = params;
+  if (!slug) {
+    notFound();
+  }
+  const validSlugs = ["mobile-legends", "b"];
+  if (!validSlugs.includes(slug)) {
+    notFound();
+  }
 
-    const [selected, setSelected] = useState<null | {
-      name: string;
-      kode: string;
-      harga: number;
-      image?: string;
-    }>(null);
-    let [isOpen, setIsOpen] = useState(false);
-    const [username, setUsername] = useState("");
-    const [game, setGame] = useState("");
-    const [id, setId] = useState("");
-    const [server, setServer] = useState("");
-    const [quantity, setQuantity] = useState(1);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [pay, setPay] = useState<null | {
-      name: string;
-      admin: string;
-      image?: string;
-    }>(null);
-    const [phone, setPhone] = useState("");
+  const [selected, setSelected] = useState<null | {
+    name: string;
+    kode: string;
+    harga: number;
+    image?: string;
+  }>(null);
+  let [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
+  const [game, setGame] = useState("");
+  const [id, setId] = useState("");
+  const [server, setServer] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [pay, setPay] = useState<null | {
+    name: string;
+    admin: string;
+    image?: string;
+  }>(null);
+  const [phone, setPhone] = useState("");
 
-    const incrementQuantity = () => {
-      const newQuantity = quantity + 1;
+  const incrementQuantity = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    calculateTotalPrice(newQuantity);
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
       setQuantity(newQuantity);
       calculateTotalPrice(newQuantity);
-    };
+    }
+  };
 
-    const decrementQuantity = () => {
-      if (quantity > 1) {
-        const newQuantity = quantity - 1;
-        setQuantity(newQuantity);
-        calculateTotalPrice(newQuantity);
-      }
-    };
+  const calculateTotalPrice = (newQuantity: number) => {
+    if (selected) {
+      const newTotalPrice = newQuantity * selected.harga;
+      setTotalPrice(newTotalPrice);
+    } else {
+      setTotalPrice(0);
+    }
+  };
 
-    const calculateTotalPrice = (newQuantity: number) => {
-      if (selected) {
-        const newTotalPrice = newQuantity * selected.harga;
-        setTotalPrice(newTotalPrice);
-      } else {
-        setTotalPrice(0);
-      }
-    };
+  const isValidPhoneNumber = (number: string): boolean => {
+    return number.length >= 11 && number.length <= 15;
+  };
 
-    
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
 
-    const isValidPhoneNumber = (number: string): boolean => {
-      return number.length >= 11 && number.length <= 15;
-    };
+    if (!selected) {
+      toast.error("Silahkan pilih nominal terlebih dahulu");
+      return;
+    }
 
-    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
+    const id = document.querySelector<HTMLInputElement>('[name="id"]');
+    const server = document.querySelector<HTMLInputElement>('[name="server"]');
 
-      if (!selected) {
-        toast.error("Silahkan pilih nominal terlebih dahulu");
-        return;
-      }
+    if (!id || !server) {
+      toast.error("Silahkan isi ID dan Server terlebih dahulu");
+      return;
+    }
 
-      const id = document.querySelector<HTMLInputElement>('[name="id"]');
-      const server = document.querySelector<HTMLInputElement>('[name="server"]');
+    if (id.value.trim() === "" || server.value.trim() === "") {
+      toast.error("Data akun tidak boleh kosong");
+      return;
+    }
 
-      if (!id || !server) {
-        toast.error("Silahkan isi ID dan Server terlebih dahulu");
-        return;
-      }
+    if (!pay) {
+      toast.error("Silahkan pilih metode pembayaran");
+      return;
+    }
 
-      if (id.value.trim() === "" || server.value.trim() === "") {
-        toast.error("Data akun tidak boleh kosong");
-        return;
-      }
+    if (!phone) {
+      toast.error("Nomer Whatsapp tidak boleh kosong");
+      return;
+    }
 
-      if (!pay) {
-        toast.error("Silahkan pilih metode pembayaran");
-        return;
-      }
+    if (!isValidPhoneNumber(phone)) {
+      toast.error("Masukan nomer Whatsapp yang valid");
+      return;
+    }
 
-      if (!phone) {
-        toast.error("Nomer Whatsapp tidak boleh kosong");
-        return;
-      }
+    setId(id.value);
+    setServer(server.value);
 
-      if (!isValidPhoneNumber(phone)) {
-        toast.error("Masukan nomer Whatsapp yang valid");
-        return;
-      }
+    fetch(
+      `https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`,
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success === true) {
+          setUsername(data.name);
+          setGame(data.game);
+          setIsOpen(true);
+        } else {
+          toast.error(`Akun tidak dapat ditemukan`);
+        }
+      });
+  };
 
-      setId(id.value);
-      setServer(server.value);
+  const filteredCategories = productCategories.filter(
+    (category) => category.slug === "mobile-legends",
+  );
 
-      fetch(
-        `https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success === true) {
-            setUsername(data.name);
-            setGame(data.game);
-            setIsOpen(true);
-          } else {
-            toast.error(`Akun tidak dapat ditemukan`);
-          }
-        });
-    };
-
-    const filteredCategories = productCategories.filter(
-      (category) => category.slug === "mobile-legends",
-    );
-    
   return (
     <main className="relative bg-gradient-theme">
       <div className="relative h-56 w-full bg-muted lg:h-[340px]"></div>
@@ -533,11 +531,9 @@ const special = [
                         const digitsOnly = cleanedPhone.replace(/\D/g, "");
                         setPhone(digitsOnly);
                       }}
-
                       forceDialCode={true}
                       placeholder="XXXXXXXXXXX"
                     />
-
                   </div>
                   <span className="text-xxs italic text-card-foreground">
                     **Nomor ini akan dihubungi jika terjadi masalah
@@ -852,5 +848,5 @@ const special = [
       </div>
       <Foot />
     </main>
-  )
+  );
 }

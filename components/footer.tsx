@@ -21,19 +21,18 @@ const Footer = () => {
               src="/IMG_1131.webp"
             />
             <p className="text-sm leading-6 text-foreground">
-            NUE PEDIA adalah tempat top up games yang aman, murah dan terpercaya. Proses cepat 1-3 Detik. Open 24 jam. Payment terlengkap. Jika ada kendala silahkan klik logo CS pada kanan bawah di website ini.
+              NUE PEDIA adalah tempat top up games yang aman, murah dan
+              terpercaya. Proses cepat 1-3 Detik. Open 24 jam. Payment
+              terlengkap. Jika ada kendala silahkan klik logo CS pada kanan
+              bawah di website ini.
             </p>
             <div className="flex space-x-6">
               <Link
                 href="https://www.instagram.com/sptra.re/"
                 className="text-murky-400 hover:text-murky-500"
-                >
+              >
                 <span className="sr-only">Instagram</span>
-                <Image 
-                  src="/IMG_1680.webp"
-                  width={24}
-                  height={24}
-                  alt="logo"/>
+                <Image src="/IMG_1680.webp" width={24} height={24} alt="logo" />
               </Link>
             </div>
           </div>
