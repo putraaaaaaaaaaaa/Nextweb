@@ -19,9 +19,7 @@ const Populer = () => {
 
     fetchPopularItems();
   }, []);
-
-  
-
+   console.log(popularItems)
   return (
     <div className="container">
       <div className="mb-5 text-foreground">

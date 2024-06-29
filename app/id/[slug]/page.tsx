@@ -30,7 +30,6 @@ import Pay from "@/components/order/pay";
 import { formatIDR } from "@/lib/formatIDR";
 import { toast } from "react-hot-toast";
 import { productCategories } from "@/data/denom";
-
 interface ProductContextType {
   selected: null | {
     name: string;
@@ -48,122 +47,135 @@ interface ProductContextType {
   ) => void;
 }
 
+interface PageProps {
+  params: {
+    slug: string | null;
+  };
+}
+
 const ProductContext = React.createContext<ProductContextType | null>(null);
 const special = [
   { name: "QRIS", admin: "0.7", image: "/IMG_1051.webp" },
   { name: "Go-Pay", admin: "2", image: "/IMG_1052.webp" },
 ];
-const Page: React.FC = () => {
-  const [selected, setSelected] = useState<null | {
-    name: string;
-    kode: string;
-    harga: number;
-    image?: string;
-  }>(null);
 
-  let [isOpen, setIsOpen] = useState(false);
-  const [username, setUsername] = useState("");
-  const [game, setGame] = useState("");
-  const [id, setId] = useState("");
-  const [server, setServer] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [pay, setPay] = useState<null | {
-    name: string;
-    admin: string;
-    image?: string;
-  }>(null);
-  const [phone, setPhone] = useState("");
+  export default function Page({ params }: PageProps) {
+    const { slug } = params;
+    if (!slug) {
+      notFound();
+    }
+    const validSlugs = ["mobile-legends", "b"];
+    if (!validSlugs.includes(slug)) {
+      notFound();
+    }
 
-  const incrementQuantity = () => {
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
-    calculateTotalPrice(newQuantity);
-  };
+    const [selected, setSelected] = useState<null | {
+      name: string;
+      kode: string;
+      harga: number;
+      image?: string;
+    }>(null);
+    let [isOpen, setIsOpen] = useState(false);
+    const [username, setUsername] = useState("");
+    const [game, setGame] = useState("");
+    const [id, setId] = useState("");
+    const [server, setServer] = useState("");
+    const [quantity, setQuantity] = useState(1);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [pay, setPay] = useState<null | {
+      name: string;
+      admin: string;
+      image?: string;
+    }>(null);
+    const [phone, setPhone] = useState("");
 
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      const newQuantity = quantity - 1;
+    const incrementQuantity = () => {
+      const newQuantity = quantity + 1;
       setQuantity(newQuantity);
       calculateTotalPrice(newQuantity);
-    }
-  };
+    };
 
-  const calculateTotalPrice = (newQuantity: number) => {
-    if (selected) {
-      const newTotalPrice = newQuantity * selected.harga;
-      setTotalPrice(newTotalPrice);
-    } else {
-      setTotalPrice(0);
-    }
-  };
+    const decrementQuantity = () => {
+      if (quantity > 1) {
+        const newQuantity = quantity - 1;
+        setQuantity(newQuantity);
+        calculateTotalPrice(newQuantity);
+      }
+    };
 
-  useEffect(() => {
-    calculateTotalPrice(quantity);
-  }, [quantity, selected]);
+    const calculateTotalPrice = (newQuantity: number) => {
+      if (selected) {
+        const newTotalPrice = newQuantity * selected.harga;
+        setTotalPrice(newTotalPrice);
+      } else {
+        setTotalPrice(0);
+      }
+    };
 
-  const isValidPhoneNumber = (number: string): boolean => {
-    return number.length >= 11 && number.length <= 15;
-  };
-
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    if (!selected) {
-      toast.error("Silahkan pilih nominal terlebih dahulu");
-      return;
-    }
-
-    const id = document.querySelector<HTMLInputElement>('[name="id"]');
-    const server = document.querySelector<HTMLInputElement>('[name="server"]');
-
-    if (!id || !server) {
-      toast.error("Silahkan isi ID dan Server terlebih dahulu");
-      return;
-    }
-
-    if (id.value.trim() === "" || server.value.trim() === "") {
-      toast.error("Data akun tidak boleh kosong");
-      return;
-    }
-
-    if (!pay) {
-      toast.error("Silahkan pilih metode pembayaran");
-      return;
-    }
-
-    if (!phone) {
-      toast.error("Nomer Whatsapp tidak boleh kosong");
-      return;
-    }
     
-    if (!isValidPhoneNumber(phone)) {
-      toast.error("Masukan nomer Whatsapp yang valid");
-      return;
-    }
 
-    setId(id.value);
-    setServer(server.value);
+    const isValidPhoneNumber = (number: string): boolean => {
+      return number.length >= 11 && number.length <= 15;
+    };
 
-    fetch(
-      `https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`,
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success === true) {
-          setUsername(data.name);
-          setGame(data.game);
-          setIsOpen(true);
-        } else {
-          toast.error(`Akun tidak dapat ditemukan`);
-        }
-      });
-  };
+    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
 
-  const filteredCategories = productCategories.filter(
-    (category) => category.slug === "mobile-legends",
-  );
+      if (!selected) {
+        toast.error("Silahkan pilih nominal terlebih dahulu");
+        return;
+      }
 
+      const id = document.querySelector<HTMLInputElement>('[name="id"]');
+      const server = document.querySelector<HTMLInputElement>('[name="server"]');
+
+      if (!id || !server) {
+        toast.error("Silahkan isi ID dan Server terlebih dahulu");
+        return;
+      }
+
+      if (id.value.trim() === "" || server.value.trim() === "") {
+        toast.error("Data akun tidak boleh kosong");
+        return;
+      }
+
+      if (!pay) {
+        toast.error("Silahkan pilih metode pembayaran");
+        return;
+      }
+
+      if (!phone) {
+        toast.error("Nomer Whatsapp tidak boleh kosong");
+        return;
+      }
+
+      if (!isValidPhoneNumber(phone)) {
+        toast.error("Masukan nomer Whatsapp yang valid");
+        return;
+      }
+
+      setId(id.value);
+      setServer(server.value);
+
+      fetch(
+        `https://api.isan.eu.org/nickname/ml?id=${id.value}&zone=${server.value}`,
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === true) {
+            setUsername(data.name);
+            setGame(data.game);
+            setIsOpen(true);
+          } else {
+            toast.error(`Akun tidak dapat ditemukan`);
+          }
+        });
+    };
+
+    const filteredCategories = productCategories.filter(
+      (category) => category.slug === "mobile-legends",
+    );
+    
   return (
     <main className="relative bg-gradient-theme">
       <div className="relative h-56 w-full bg-muted lg:h-[340px]"></div>
@@ -517,15 +529,15 @@ const Page: React.FC = () => {
                         const cleanedPhone = phone.startsWith("+")
                           ? phone.slice(1)
                           : phone;
-                       
+
                         const digitsOnly = cleanedPhone.replace(/\D/g, "");
                         setPhone(digitsOnly);
                       }}
-                      
+
                       forceDialCode={true}
                       placeholder="XXXXXXXXXXX"
                     />
-                  
+
                   </div>
                   <span className="text-xxs italic text-card-foreground">
                     **Nomor ini akan dihubungi jika terjadi masalah
@@ -840,7 +852,5 @@ const Page: React.FC = () => {
       </div>
       <Foot />
     </main>
-  );
-};
-
-export default Page;
+  )
+}

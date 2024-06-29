@@ -75,7 +75,7 @@ const TabPanelComponent = () => {
                     <Image
                       alt="banner"
                       className="aspect-[4/6] object-cover object-center"
-                      src="/IMG_1227.png"
+                      src="/thumbnail/ml.webp"
                       width={192}
                       height={288}
                     />
