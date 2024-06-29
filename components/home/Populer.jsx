@@ -50,7 +50,7 @@ const Populer = () => {
           >
             <Link
               className="flex items-center gap-x-2 rounded-[--card-radius] bg-muted duration-300 ease-in-out hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background md:gap-x-3 bg-popular-background text-popular-foreground bg-popular-image bg-cover bg-center bg-no-repeat"
-              href={item.link}
+              href={`/id/${item.link}`}
             >
               <div className="flex items-center gap-3 p-[--card-padding]">
                 <Image
