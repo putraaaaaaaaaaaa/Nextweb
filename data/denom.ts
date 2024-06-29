@@ -23,7 +23,13 @@ export const productCategories: {
         image: "/IMG_1438.webp",
         promo: false,
       },
-      //... other special items
+      {
+        name: "Weekly Diamond Pass 2X",
+        kode: "WDP2",
+        harga: 56000,
+        image: "/IMG_1438.webp",
+        promo: false,
+      },
     ],
   },
   {
