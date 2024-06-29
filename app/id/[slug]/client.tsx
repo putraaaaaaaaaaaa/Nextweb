@@ -58,6 +58,9 @@ const special = [
 interface ClientPageProps {
   slug: string;
   name: string;
+  sub_name: string;
+  thumbnail: string;
+  banner: string;
 }
 
 export default function ClientPage({ slug, name, sub_name, banner, thumbnail }: ClientPageProps) {
