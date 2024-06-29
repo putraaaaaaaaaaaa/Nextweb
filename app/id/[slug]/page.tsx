@@ -30,6 +30,7 @@ import Pay from "@/components/order/pay";
 import { formatIDR } from "@/lib/formatIDR";
 import { toast } from "react-hot-toast";
 import { productCategories } from "@/data/denom";
+
 interface ProductContextType {
   selected: null | {
     name: string;
@@ -58,17 +59,15 @@ const special = [
   { name: "QRIS", admin: "0.7", image: "/IMG_1051.webp" },
   { name: "Go-Pay", admin: "2", image: "/IMG_1052.webp" },
 ];
-
-export default function Page({ params }: PageProps) {
-  const { slug } = params;
-  if (!slug) {
-    notFound();
-  }
-  const validSlugs = ["mobile-legends", "b"];
-  if (!validSlugs.includes(slug)) {
-    notFound();
-  }
-
+  export default function Page({ params }: PageProps) {
+    const { slug } = params;
+    if (!slug) {
+      notFound();
+    }
+    const validSlugs = ["mobile-legends", "b"];
+    if (!validSlugs.includes(slug)) {
+      notFound();
+    }
   const [selected, setSelected] = useState<null | {
     name: string;
     kode: string;
@@ -111,6 +110,10 @@ export default function Page({ params }: PageProps) {
       setTotalPrice(0);
     }
   };
+
+  useEffect(() => {
+    calculateTotalPrice(quantity);
+  }, [quantity, selected]);
 
   const isValidPhoneNumber = (number: string): boolean => {
     return number.length >= 11 && number.length <= 15;
@@ -570,7 +573,7 @@ export default function Page({ params }: PageProps) {
                   <div className="aspect-square h-16">
                     <Image
                       alt="banner"
-                      src="/IMG_1227.png"
+                      src="/thumbnail/ml.webp"
                       className="aspect-square h-16 rounded-lg object-cover"
                       width={300}
                       height={300}
@@ -849,4 +852,4 @@ export default function Page({ params }: PageProps) {
       <Foot />
     </main>
   );
-}
+};
