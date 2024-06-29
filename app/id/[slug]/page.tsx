@@ -12,8 +12,9 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const { slug } = params;
   const validSlugs = await fetchValidSlugs();
-  if (!validSlugs.includes(slug)) {
+  const slugData = validSlugs.find((data) => data.link === slug);
+  if (!slugData) {
     notFound();
   }
-  return <ClientPage slug={slug} />;
+  return <ClientPage slug={slug} name={slugData.name} sub_name={slugData.sub_name} banner={slugData.banner} thumbnail={slugData.thumbnail} />;
 }

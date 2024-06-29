@@ -33,6 +33,27 @@ export const productCategories: {
     ],
   },
   {
+    name: "Blessing of the Welkin Moon",
+    emoji: "🔥",
+    slug: "genshin-impact",
+    products: [
+      {
+        name: "Blessing of the Welkin Moon",
+        kode: "BWM",
+        harga: 57000,
+        image: "/IMG_1438.webp",
+        promo: false,
+      },
+      {
+        name: "Blessing of the Welkin Moon 2X",
+        kode: "BWM2",
+        harga: 115000,
+        image: "/IMG_1438.webp",
+        promo: false,
+      },
+    ],
+  },
+  {
     name: "Topup Instants",
     emoji: "✨",
     slug: "mobile-legends",
@@ -45,8 +66,6 @@ export const productCategories: {
         promo: false,
         available: true,
       },
-      //... other top-up items
     ],
   },
-  // Add more categories here
 ];

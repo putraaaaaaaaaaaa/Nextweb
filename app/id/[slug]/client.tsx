@@ -57,9 +57,10 @@ const special = [
 
 interface ClientPageProps {
   slug: string;
+  name: string;
 }
 
-export default function ClientPage({ slug }: ClientPageProps) {
+export default function ClientPage({ slug, name, sub_name, banner, thumbnail }: ClientPageProps) {
   const [selected, setSelected] = useState<null | {
     name: string;
     kode: string;
@@ -178,7 +179,7 @@ export default function ClientPage({ slug }: ClientPageProps) {
               <div className="product-thumbnail-container relative -top-28">
                 <Image
                   alt="Thumbnail"
-                  src="/thumbnail/ml.webp"
+                  src={thumbnail}
                   width={300}
                   height={300}
                   className="z-20 -mb-14 aspect-square w-32 rounded-2xl object-cover shadow-2xl md:-mb-20 md:w-60"
@@ -188,15 +189,70 @@ export default function ClientPage({ slug }: ClientPageProps) {
           </div>
           <div className="py-4 sm:py-0">
             <h1 className="text-xs font-bold uppercase leading-7 tracking-wider sm:text-lg">
-              Mobile Legends
+              {name}
             </h1>
-            <p className="text-xs font-medium sm:text-base/6">Moonton</p>
+            <p className="text-xs font-medium sm:text-base/6">{sub_name}</p>
             <Tag />
           </div>
         </div>
       </div>
       <div className="container relative mt-8 grid grid-cols-3 gap-4 md:gap-8">
-        <Deskripsi />
+        <div className="col-span-3 lg:col-span-1">
+          <div className="sticky top-[90px] flex flex-col gap-8">
+            <div className="space-y-2">
+              <Disclosure defaultOpen={true}>
+                {({ open }) => (
+                  <>
+                    <DisclosureButton className="flex w-full items-center justify-between rounded-lg bg-card/75 px-4 py-2 text-left text-xs font-medium text-card-foreground focus:outline-none">
+                      <span>Deskripsi dan cara melakukan transaksi</span>
+                      <ChevronDownIcon
+                        className={clsx("w-5", open && "rotate-180")}
+                      />
+                    </DisclosureButton>
+                    <Transition
+                      enter="duration-200 ease-out"
+                      enterFrom="opacity-0 -translate-y-6"
+                      enterTo="opacity-100 translate-y-0"
+                      leave="duration-300 ease-out"
+                      leaveFrom="opacity-100 translate-y-0"
+                      leaveTo="opacity-0 -translate-y-6"
+                    >
+                      <DisclosurePanel className="origin-top transition">
+                        <div className="rounded-xl bg-card/50 px-4 pb-4 pt-2 shadow-2xl">
+                          <div className="prose prose-sm text-xs text-foreground">
+                            <div>
+                              <p>
+                                Beli & top up {name} harga paling murah, aman, cepat,
+                                dan terpercaya hanya di NUEPEDIA.
+                              </p>
+                              <p>
+                                Cara topup {name}:
+                                <br />
+                                1) Pilih Nominal
+                                <br />
+                                2) Masukkan Data Akun
+                                <br />
+                                3) Tentukan Jumlah Pembelian
+                                <br />
+                                4) Pilih Pembayaran
+                                <br />
+                                5) Isi Detail Kontak
+                                <br />
+                                6) Klik Pesan Sekarang dan lakukan Pembayaran
+                                <br />
+                                7) Selesai
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </DisclosurePanel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+            </div>
+          </div>
+        </div>
         <form className="col-span-3 col-start-1 flex flex-col gap-4 lg:col-span-2 lg:gap-8">
           <section className="relative rounded-xl bg-card/50 shadow-2xl" id="1">
             <div className="flex items-center overflow-hidden rounded-t-xl bg-card">
@@ -564,7 +620,7 @@ export default function ClientPage({ slug }: ClientPageProps) {
                   <div className="aspect-square h-16">
                     <Image
                       alt="banner"
-                      src="/thumbnail/ml.webp"
+                      src={thumbnail}
                       className="aspect-square h-16 rounded-lg object-cover"
                       width={300}
                       height={300}
