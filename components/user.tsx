@@ -1,7 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { auth, signIn, signOut } from '@/lib/auth';
 import Image from 'next/image';
-
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  ArchiveBoxXMarkIcon,
+  ChevronDownIcon,
+  PencilIcon,
+  Square2StackIcon,
+  TrashIcon,
+} from "@heroicons/react/16/solid";
+import { CircleUser, LogIn } from "lucide-react";
 export async function User() {
   const session = await auth();
   const user = session?.user;
