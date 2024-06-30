@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { auth, signIn, signOut } from '@/lib/auth';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   ArchiveBoxXMarkIcon,
