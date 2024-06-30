@@ -3,9 +3,9 @@
     "app/id/[slug]/page.tsx": [
       {
         "id": "1a836e0f-7e0d-483a-93e2-8b3d3a9f5520",
-        "line": 20,
-        "version": 5588,
-        "index": 406
+        "line": 1,
+        "version": 5785,
+        "index": 0
       }
     ],
     "app/main (copy).css": [
