@@ -59,14 +59,14 @@ export async function User() {
             </button>
           </MenuItem>
           <MenuItem>
-              <form
-                action={async () => {
-                  'use server';
-                  await signOut();
-                }}
-              >
-                <button className="text-foreground group flex w-full items-center px-4 py-2 text-sm">Keluar</button>
-              </form>
+            <form
+              action={async () => {
+                'use server';
+                await signOut();
+              }}
+            >
+              <Button variant="outline">Keluar</Button>
+            </form>
           </MenuItem>
         </div>
       </MenuItems>
